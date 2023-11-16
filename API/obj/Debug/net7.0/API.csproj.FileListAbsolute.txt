@@ -85,3 +85,4 @@ C:\Users\Jean\Desktop\campus\Jardineria\API\obj\Debug\net7.0\refint\API.dll
 C:\Users\Jean\Desktop\campus\Jardineria\API\obj\Debug\net7.0\API.pdb
 C:\Users\Jean\Desktop\campus\Jardineria\API\obj\Debug\net7.0\API.genruntimeconfig.cache
 C:\Users\Jean\Desktop\campus\Jardineria\API\obj\Debug\net7.0\ref\API.dll
+C:\Users\Jean\Desktop\campus\Jardineria\API\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.Versioning.dll
