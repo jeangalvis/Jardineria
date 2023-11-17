@@ -3,6 +3,7 @@
     "Configurations",
     "Interfaces",
     "Repository",
-    "Dtos"
+    "Dtos",
+    "Controllers"
   ]
 }
