@@ -15,6 +15,8 @@ public partial class DetallePedido
 
     public string CodigoProducto { get; set; } = null!;
 
+    public string IdDetallePedido { get; set; } = null!;
+
     public Pedido CodigoPedidoNavigation { get; set; } = null!;
 
     public Producto CodigoProductoNavigation { get; set; } = null!;

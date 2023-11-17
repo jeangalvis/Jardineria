@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 namespace Domain.Entities;
 
 public partial class ProveedorProducto
@@ -12,7 +13,7 @@ public partial class ProveedorProducto
 
     public string ProductoCodigoProducto { get; set; } = null!;
 
-    public virtual Producto ProductoCodigoProductoNavigation { get; set; } = null!;
+    public Producto ProductoCodigoProductoNavigation { get; set; } = null!;
 
-    public virtual Proveedor Proveedor { get; set; } = null!;
+    public Proveedor Proveedor { get; set; } = null!;
 }

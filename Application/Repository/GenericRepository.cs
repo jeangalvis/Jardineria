@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Repository;
-public class GenericRepository<T> : IGeneric<T> where T : BaseEntity
+public class GenericRepository<T> : IGeneric<T> where T : class
 {
     private readonly JardineriaContext _context;
 

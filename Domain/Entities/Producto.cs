@@ -21,9 +21,9 @@ public partial class Producto
 
     public int IdGama { get; set; }
 
-    public ICollection<DetallePedido> DetallePedidos { get; set; } = new List<DetallePedido>();
+    public virtual ICollection<DetallePedido> DetallePedidos { get; set; } = new List<DetallePedido>();
 
-    public GamaProducto IdGamaNavigation { get; set; } = null!;
+    public virtual GamaProducto IdGamaNavigation { get; set; } = null!;
 
-    public ICollection<ProveedorProducto> ProveedorProductos { get; set; } = new List<ProveedorProducto>();
+    public virtual ICollection<ProveedorProducto> ProveedorProductos { get; set; } = new List<ProveedorProducto>();
 }
