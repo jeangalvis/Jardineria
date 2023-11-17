@@ -126,39 +126,39 @@ namespace Persistence.Data.Migrations
             //     })
             //     .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
-                name: "rol",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_rol", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+            // migrationBuilder.CreateTable(
+            //     name: "rol",
+            //     columns: table => new
+            //     {
+            //         Id = table.Column<int>(type: "int", nullable: false)
+            //             .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+            //         Name = table.Column<string>(type: "longtext", nullable: true)
+            //             .Annotation("MySql:CharSet", "utf8mb4")
+            //     },
+            //     constraints: table =>
+            //     {
+            //         table.PrimaryKey("PK_rol", x => x.Id);
+            //     })
+            //     .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
-                name: "user",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Username = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Password = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_user", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+            // migrationBuilder.CreateTable(
+            //     name: "user",
+            //     columns: table => new
+            //     {
+            //         Id = table.Column<int>(type: "int", nullable: false)
+            //             .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+            //         Username = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
+            //             .Annotation("MySql:CharSet", "utf8mb4"),
+            //         Email = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+            //             .Annotation("MySql:CharSet", "utf8mb4"),
+            //         Password = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
+            //             .Annotation("MySql:CharSet", "utf8mb4")
+            //     },
+            //     constraints: table =>
+            //     {
+            //         table.PrimaryKey("PK_user", x => x.Id);
+            //     })
+            //     .Annotation("MySql:CharSet", "utf8mb4");
 
             // migrationBuilder.CreateTable(
             //     name: "producto",
@@ -225,55 +225,55 @@ namespace Persistence.Data.Migrations
             //     })
             //     .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
-                name: "refreshToken",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    IdUserfk = table.Column<int>(type: "int", nullable: false),
-                    Token = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Expires = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Revoked = table.Column<DateTime>(type: "datetime(6)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_refreshToken", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_refreshToken_user_IdUserfk",
-                        column: x => x.IdUserfk,
-                        principalTable: "user",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+            // migrationBuilder.CreateTable(
+            //     name: "refreshToken",
+            //     columns: table => new
+            //     {
+            //         Id = table.Column<int>(type: "int", nullable: false)
+            //             .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+            //         IdUserfk = table.Column<int>(type: "int", nullable: false),
+            //         Token = table.Column<string>(type: "longtext", nullable: true)
+            //             .Annotation("MySql:CharSet", "utf8mb4"),
+            //         Expires = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+            //         Created = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+            //         Revoked = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+            //     },
+            //     constraints: table =>
+            //     {
+            //         table.PrimaryKey("PK_refreshToken", x => x.Id);
+            //         table.ForeignKey(
+            //             name: "FK_refreshToken_user_IdUserfk",
+            //             column: x => x.IdUserfk,
+            //             principalTable: "user",
+            //             principalColumn: "Id",
+            //             onDelete: ReferentialAction.Cascade);
+            //     })
+            //     .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
-                name: "userRols",
-                columns: table => new
-                {
-                    IdUserfk = table.Column<int>(type: "int", nullable: false),
-                    IdRolfk = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_userRols", x => new { x.IdUserfk, x.IdRolfk });
-                    table.ForeignKey(
-                        name: "FK_userRols_rol_IdRolfk",
-                        column: x => x.IdRolfk,
-                        principalTable: "rol",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_userRols_user_IdUserfk",
-                        column: x => x.IdUserfk,
-                        principalTable: "user",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+            // migrationBuilder.CreateTable(
+            //     name: "userRols",
+            //     columns: table => new
+            //     {
+            //         IdUserfk = table.Column<int>(type: "int", nullable: false),
+            //         IdRolfk = table.Column<int>(type: "int", nullable: false)
+            //     },
+            //     constraints: table =>
+            //     {
+            //         table.PrimaryKey("PK_userRols", x => new { x.IdUserfk, x.IdRolfk });
+            //         table.ForeignKey(
+            //             name: "FK_userRols_rol_IdRolfk",
+            //             column: x => x.IdRolfk,
+            //             principalTable: "rol",
+            //             principalColumn: "Id",
+            //             onDelete: ReferentialAction.Cascade);
+            //         table.ForeignKey(
+            //             name: "FK_userRols_user_IdUserfk",
+            //             column: x => x.IdUserfk,
+            //             principalTable: "user",
+            //             principalColumn: "Id",
+            //             onDelete: ReferentialAction.Cascade);
+            //     })
+            //     .Annotation("MySql:CharSet", "utf8mb4");
 
             // migrationBuilder.CreateTable(
             //     name: "proveedor_producto",
@@ -418,15 +418,15 @@ namespace Persistence.Data.Migrations
             //     table: "proveedor_producto",
             //     column: "proveedor_id");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_refreshToken_IdUserfk",
-                table: "refreshToken",
-                column: "IdUserfk");
+            //     migrationBuilder.CreateIndex(
+            //         name: "IX_refreshToken_IdUserfk",
+            //         table: "refreshToken",
+            //         column: "IdUserfk");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_userRols_IdRolfk",
-                table: "userRols",
-                column: "IdRolfk");
+            //     migrationBuilder.CreateIndex(
+            //         name: "IX_userRols_IdRolfk",
+            //         table: "userRols",
+            //         column: "IdRolfk");
         }
 
         /// <inheritdoc />
@@ -438,11 +438,11 @@ namespace Persistence.Data.Migrations
             // migrationBuilder.DropTable(
             //     name: "proveedor_producto");
 
-            migrationBuilder.DropTable(
-                name: "refreshToken");
+            // migrationBuilder.DropTable(
+            //     name: "refreshToken");
 
-            migrationBuilder.DropTable(
-                name: "userRols");
+            // migrationBuilder.DropTable(
+            //     name: "userRols");
 
             // migrationBuilder.DropTable(
             //     name: "pedido");
@@ -453,11 +453,11 @@ namespace Persistence.Data.Migrations
             // migrationBuilder.DropTable(
             //     name: "proveedor");
 
-            migrationBuilder.DropTable(
-                name: "rol");
+            // migrationBuilder.DropTable(
+            //     name: "rol");
 
-            migrationBuilder.DropTable(
-                name: "user");
+            // migrationBuilder.DropTable(
+            //     name: "user");
 
             // migrationBuilder.DropTable(
             //     name: "cliente");
