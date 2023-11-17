@@ -1,3 +1,8 @@
 {
-  "conventionalCommits.scopes": ["Configurations", "Interfaces", "Repository"]
+  "conventionalCommits.scopes": [
+    "Configurations",
+    "Interfaces",
+    "Repository",
+    "Dtos"
+  ]
 }

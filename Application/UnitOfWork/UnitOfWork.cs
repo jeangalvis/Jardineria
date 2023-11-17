@@ -59,6 +59,112 @@ namespace Application.UnitOfWork
                 return _cliente;
             }
         }
+        public IDetallePedido DetallePedidos
+        {
+            get
+            {
+                if (_detallePedido == null)
+                {
+                    _detallePedido = new DetallePedidoRepository(context);
+                }
+                return _detallePedido;
+            }
+        }
+        public IEmpleado Empleados
+        {
+            get
+            {
+                if (_empleado == null)
+                {
+                    _empleado = new EmpleadoRepository(context);
+                }
+                return _empleado;
+            }
+        }
+
+        public IGamaProducto GamaProductos
+        {
+            get
+            {
+                if (_gamaProducto == null)
+                {
+                    _gamaProducto = new GamaProductoRepository(context);
+                }
+                return _gamaProducto;
+            }
+        }
+
+        public IOficina Oficinas
+        {
+            get
+            {
+                if (_oficina == null)
+                {
+                    _oficina = new OficinaRepository(context);
+                }
+                return _oficina;
+            }
+        }
+
+        public IPago Pagos
+        {
+            get
+            {
+                if (_pago == null)
+                {
+                    _pago = new PagoRepository(context);
+                }
+                return _pago;
+            }
+        }
+
+        public IPedido Pedidos
+        {
+            get
+            {
+                if (_pedido == null)
+                {
+                    _pedido = new PedidoRepository(context);
+                }
+                return _pedido;
+            }
+        }
+
+        public IProducto Productos
+        {
+            get
+            {
+                if (_producto == null)
+                {
+                    _producto = new ProductoRepository(context);
+                }
+                return _producto;
+            }
+        }
+
+        public IProveedor Proveedors
+        {
+            get
+            {
+                if (_proveedor == null)
+                {
+                    _proveedor = new ProveedorRepository(context);
+                }
+                return _proveedor;
+            }
+        }
+
+        public IProveedorProducto ProveedorProductos
+        {
+            get
+            {
+                if (_proveedorProducto == null)
+                {
+                    _proveedorProducto = new ProveedorProductoRepository(context);
+                }
+                return _proveedorProducto;
+            }
+        }
 
         public void Dispose()
         {
