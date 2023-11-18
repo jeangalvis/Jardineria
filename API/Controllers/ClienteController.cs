@@ -104,4 +104,14 @@ public class ClienteController : BaseApiController
         var lstResultDto = _mapper.Map<List<ClienteDto>>(result.registros);
         return new Pager<ClienteDto>(lstResultDto, result.totalRegistros, resultParams.PageIndex, resultParams.PageSize, resultParams.Search);
     }
+    [HttpGet("GetClientesEspañoles")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ClienteDto>>> Get3()
+    {
+        var results = await _unitOfWork.Clientes
+                                    .GetClientesEspañoles();
+        return _mapper.Map<List<ClienteDto>>(results);
+    }
 }

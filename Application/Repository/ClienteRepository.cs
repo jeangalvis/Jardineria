@@ -37,4 +37,10 @@ public class ClienteRepository : GenericRepository<Cliente>, ICliente
                                  .ToListAsync();
         return (totalRegistros, registros);
     }
+
+    public async Task<IEnumerable<Cliente>> GetClientesEspañoles()
+    {
+        return await _context.Clientes
+                                    .Where(p => p.Pais.ToLower() == "Spain".ToLower()).ToListAsync();
+    }
 }
