@@ -54,5 +54,11 @@ Body en formato JSON
 
 ## Endpoints consultas
 
-1. Consulta
-   `/api/Cliente/GetClientesEspañoles`
+1. Devuelve un listado con el nombre de los todos los clientes españoles.
+
+`/api/Cliente/GetClientesEspañoles`
+
+2.  Devuelve un listado con los distintos estados por los que puede pasar un
+    pedido.
+
+`/api/Pedido/GetDistintosEstados`

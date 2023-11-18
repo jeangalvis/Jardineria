@@ -40,4 +40,8 @@ public class PedidoRepository : GenericRepository<Pedido>, IPedido
                                  .ToListAsync();
         return (totalRegistros, registros);
     }
+    public async Task<IEnumerable<Pedido>> GetDistintosEstados()
+    {
+        return await _context.Pedidos.GroupBy(p => p.Estado).Select(p => new Pedido { Estado = p.Key }).ToListAsync();
+    }
 }

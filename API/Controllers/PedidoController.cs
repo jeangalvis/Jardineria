@@ -104,4 +104,14 @@ public class PedidoController : BaseApiController
         var lstResultDto = _mapper.Map<List<PedidoDto>>(result.registros);
         return new Pager<PedidoDto>(lstResultDto, result.totalRegistros, resultParams.PageIndex, resultParams.PageSize, resultParams.Search);
     }
+    [HttpGet("GetDistintosEstados")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<EstadosPedidosDto>>> Get3()
+    {
+        var results = await _unitOfWork.Pedidos
+                                    .GetDistintosEstados();
+        return _mapper.Map<List<EstadosPedidosDto>>(results);
+    }
 }

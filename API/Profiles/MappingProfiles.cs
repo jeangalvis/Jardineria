@@ -16,6 +16,10 @@ namespace API.Profiles
             CreateMap<Pago, PagoDto>().ReverseMap();
             CreateMap<Pedido, PedidoDto>().ReverseMap();
             CreateMap<Producto, ProductoDto>().ReverseMap();
+
+            //Consultas
+
+            CreateMap<Pedido, EstadosPedidosDto>().ReverseMap();
         }
     }
 }

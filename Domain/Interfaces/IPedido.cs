@@ -4,5 +4,6 @@ namespace Domain.Interfaces
 {
     public interface IPedido : IGeneric<Pedido>
     {
+        Task<IEnumerable<Pedido>> GetDistintosEstados();
     }
 }
