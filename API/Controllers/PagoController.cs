@@ -104,4 +104,25 @@ public class PagoController : BaseApiController
         var lstResultDto = _mapper.Map<List<PagoDto>>(result.registros);
         return new Pager<PagoDto>(lstResultDto, result.totalRegistros, resultParams.PageIndex, resultParams.PageSize, resultParams.Search);
     }
+    [HttpGet("GetPagos2008Paypal")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<PagoDto>>> Get3()
+    {
+        var results = await _unitOfWork.Pagos
+                                    .GetPagos2008Paypal();
+        return _mapper.Map<List<PagoDto>>(results);
+    }
+    [HttpGet("GetFormasPago")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<FormaPagoDto>>> Get4()
+    {
+        var results = await _unitOfWork.Pagos
+                                    .GetFormasPago();
+        return _mapper.Map<List<FormaPagoDto>>(results);
+    }
+
 }

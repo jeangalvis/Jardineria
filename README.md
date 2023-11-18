@@ -3,7 +3,7 @@
 Los endpoints estan separados por:
 
 - Los gets de cada tabla y su versionado.
-- Los gets de las consultas y su versionado.
+- Los gets de las consultas
 
 ## Endpoints Usuarios
 
@@ -80,3 +80,30 @@ Body en formato JSON
     menos dos días antes de la fecha esperada.
 
 `/api/Pedido/GetNoEntregadosATiempov2`
+
+6.  Devuelve un listado de todos los pedidos que fueron rechazados en 2009.
+
+`/api/Pedido/GetPedidosRechazados`
+
+7.  Devuelve un listado de todos los pedidos que han sido entregados en el
+    mes de enero de cualquier año.
+
+`/api/Pedido/GetPedidosEntregadosEnero`
+
+8.  Devuelve un listado con todos los pagos que se realizaron en el
+    año 2008 mediante Paypal. Ordene el resultado de mayor a menor.
+
+`/api/Pago/GetPagos2008Paypal`
+
+9.  Devuelve un listado con todas las formas de pago que aparecen en la
+    tabla pago. Tenga en cuenta que no deben aparecer formas de pago
+    repetidas.
+
+`/api/Pago/GetFormasPago`
+
+10. Devuelve un listado con todos los productos que pertenecen a la
+    gama Ornamentales y que tienen más de 100 unidades en stock. El listado
+    deberá estar ordenado por su precio de venta, mostrando en primer lugar
+    los de mayor precio.
+
+`/api/Producto/GetOrnamentalesStock100`

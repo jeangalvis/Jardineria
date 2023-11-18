@@ -71,4 +71,17 @@ public class PedidoRepository : GenericRepository<Pedido>, IPedido
                                     })
                                     .ToListAsync();
     }
+
+    public async Task<IEnumerable<Pedido>> GetPedidosRechazados()
+    {
+        return await _context.Pedidos
+                                    .Where(p => p.Estado.ToLower() == "Rechazado".ToLower() && p.FechaPedido.Year == 2009)
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<Pedido>> GetPedidosEntregadosEnero()
+    {
+        return await _context.Pedidos
+                                    .Where(p => p.FechaEntrega.HasValue && p.FechaEntrega.Value.Month == 1)
+                                    .ToListAsync();
+    }
 }

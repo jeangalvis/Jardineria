@@ -134,4 +134,24 @@ public class PedidoController : BaseApiController
                                     .GetNoEntregadosATiempov2();
         return _mapper.Map<List<NoEntregadosATiempoDto>>(results);
     }
+    [HttpGet("GetPedidosRechazados")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<PedidoDto>>> Get6()
+    {
+        var results = await _unitOfWork.Pedidos
+                                    .GetPedidosRechazados();
+        return _mapper.Map<List<PedidoDto>>(results);
+    }
+    [HttpGet("GetPedidosEntregadosEnero")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<PedidoDto>>> Get7()
+    {
+        var results = await _unitOfWork.Pedidos
+                                    .GetPedidosEntregadosEnero();
+        return _mapper.Map<List<PedidoDto>>(results);
+    }
 }

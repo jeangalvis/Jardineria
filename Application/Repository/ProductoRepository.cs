@@ -37,4 +37,11 @@ public class ProductoRepository : GenericRepository<Producto>, IProducto
                                  .ToListAsync();
         return (totalRegistros, registros);
     }
+    public async Task<IEnumerable<Producto>> GetOrnamentalesStock100()
+    {
+        return await _context.Productos
+                                    .Where(p => p.Gama.ToLower() == "Ornamentales".ToLower() && p.CantidadEnStock > 100)
+                                    .OrderByDescending(p => p.PrecioVenta)
+                                    .ToListAsync();
+    }
 }

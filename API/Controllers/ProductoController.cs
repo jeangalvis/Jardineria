@@ -104,4 +104,14 @@ public class ProductoController : BaseApiController
         var lstResultDto = _mapper.Map<List<ProductoDto>>(result.registros);
         return new Pager<ProductoDto>(lstResultDto, result.totalRegistros, resultParams.PageIndex, resultParams.PageSize, resultParams.Search);
     }
+    [HttpGet("GetOrnamentalesStock100")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProductoDto>>> Get3()
+    {
+        var results = await _unitOfWork.Productos
+                                    .GetOrnamentalesStock100();
+        return _mapper.Map<List<ProductoDto>>(results);
+    }
 }
