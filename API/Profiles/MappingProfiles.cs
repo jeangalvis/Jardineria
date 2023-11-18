@@ -20,6 +20,8 @@ namespace API.Profiles
             //Consultas
 
             CreateMap<Pedido, EstadosPedidosDto>().ReverseMap();
+            CreateMap<Cliente, CodigoPago2008Dto>().ReverseMap();
+            CreateMap<Pedido, NoEntregadosATiempoDto>().ReverseMap();
         }
     }
 }

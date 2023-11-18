@@ -62,3 +62,21 @@ Body en formato JSON
     pedido.
 
 `/api/Pedido/GetDistintosEstados`
+
+3.  Devuelve un listado con el código de cliente de aquellos clientes que
+    realizaron algún pago en 2008. Tenga en cuenta que deberá eliminar
+    aquellos códigos de cliente que aparezcan repetidos.
+
+`/api/Cliente/GetCodigoPago2008`
+
+4.  Devuelve un listado con el código de pedido, código de cliente, fecha
+    esperada y fecha de entrega de los pedidos que no han sido entregados a
+    tiempo.
+
+`/api/Pedido/GetNoEntregadosATiempo`
+
+5.  Devuelve un listado con el código de pedido, código de cliente, fecha
+    esperada y fecha de entrega de los pedidos cuya fecha de entrega ha sido al
+    menos dos días antes de la fecha esperada.
+
+`/api/Pedido/GetNoEntregadosATiempov2`

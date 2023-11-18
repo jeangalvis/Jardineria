@@ -44,4 +44,31 @@ public class PedidoRepository : GenericRepository<Pedido>, IPedido
     {
         return await _context.Pedidos.GroupBy(p => p.Estado).Select(p => new Pedido { Estado = p.Key }).ToListAsync();
     }
+    public async Task<IEnumerable<Pedido>> GetNoEntregadosATiempo()
+    {
+        return await _context.Pedidos
+                                    .Where(p => p.FechaEsperada < p.FechaEntrega)
+                                    .Select(p => new Pedido
+                                    {
+                                        CodigoPedido = p.CodigoPedido,
+                                        CodigoCliente = p.CodigoCliente,
+                                        FechaEsperada = p.FechaEsperada,
+                                        FechaEntrega = p.FechaEntrega
+                                    })
+                                    .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Pedido>> GetNoEntregadosATiempov2()
+    {
+        return await _context.Pedidos
+                                    .Where(p => EF.Functions.DateDiffDay(p.FechaEntrega, p.FechaEsperada) >= 2)
+                                    .Select(p => new Pedido
+                                    {
+                                        CodigoPedido = p.CodigoPedido,
+                                        CodigoCliente = p.CodigoCliente,
+                                        FechaEsperada = p.FechaEsperada,
+                                        FechaEntrega = p.FechaEntrega
+                                    })
+                                    .ToListAsync();
+    }
 }

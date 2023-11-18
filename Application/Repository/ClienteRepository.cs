@@ -43,4 +43,13 @@ public class ClienteRepository : GenericRepository<Cliente>, ICliente
         return await _context.Clientes
                                     .Where(p => p.Pais.ToLower() == "Spain".ToLower()).ToListAsync();
     }
+    public async Task<IEnumerable<Cliente>> GetCodigoPago2008()
+    {
+        return await _context.Clientes
+                                    .Include(p => p.Pagos)
+                                    .Where(p => p.Pagos.Any(p => p.FechaPago.Year == 2008))
+                                    .GroupBy(p => p.CodigoCliente)
+                                    .Select(p => new Cliente { CodigoCliente = p.Key })
+                                    .ToListAsync();
+    }
 }

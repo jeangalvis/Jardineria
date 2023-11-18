@@ -114,4 +114,14 @@ public class ClienteController : BaseApiController
                                     .GetClientesEspañoles();
         return _mapper.Map<List<ClienteDto>>(results);
     }
+    [HttpGet("GetCodigoPago2008")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<CodigoPago2008Dto>>> Get4()
+    {
+        var results = await _unitOfWork.Clientes
+                                    .GetCodigoPago2008();
+        return _mapper.Map<List<CodigoPago2008Dto>>(results);
+    }
 }

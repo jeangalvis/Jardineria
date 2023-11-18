@@ -114,4 +114,24 @@ public class PedidoController : BaseApiController
                                     .GetDistintosEstados();
         return _mapper.Map<List<EstadosPedidosDto>>(results);
     }
+    [HttpGet("GetNoEntregadosATiempo")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<NoEntregadosATiempoDto>>> Get4()
+    {
+        var results = await _unitOfWork.Pedidos
+                                    .GetNoEntregadosATiempo();
+        return _mapper.Map<List<NoEntregadosATiempoDto>>(results);
+    }
+    [HttpGet("GetNoEntregadosATiempov2")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<NoEntregadosATiempoDto>>> Get5()
+    {
+        var results = await _unitOfWork.Pedidos
+                                    .GetNoEntregadosATiempov2();
+        return _mapper.Map<List<NoEntregadosATiempoDto>>(results);
+    }
 }

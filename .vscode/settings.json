@@ -4,6 +4,7 @@
     "Interfaces",
     "Repository",
     "Dtos",
-    "Controllers"
+    "Controllers",
+    "Queries"
   ]
 }
