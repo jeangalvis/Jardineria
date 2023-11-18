@@ -107,3 +107,8 @@ Body en formato JSON
     los de mayor precio.
 
 `/api/Producto/GetOrnamentalesStock100`
+
+11. Devuelve un listado con todos los clientes que sean de la ciudad de Madrid y
+    cuyo representante de ventas tenga el código de empleado 11 o 30.
+
+`/api/Cliente/GetClientesMadridRep11o30`

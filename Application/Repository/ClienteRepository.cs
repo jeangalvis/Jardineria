@@ -52,4 +52,10 @@ public class ClienteRepository : GenericRepository<Cliente>, ICliente
                                     .Select(p => new Cliente { CodigoCliente = p.Key })
                                     .ToListAsync();
     }
+    public async Task<IEnumerable<Cliente>> GetClientesMadridRep11o30()
+    {
+        return await _context.Clientes
+                                    .Where(p => p.Ciudad.ToLower() == "Madrid".ToLower() && p.CodigoEmpleadoRepVentas == 11 || p.CodigoEmpleadoRepVentas == 30)
+                                    .ToListAsync();
+    }
 }

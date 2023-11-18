@@ -6,5 +6,6 @@ namespace Domain.Interfaces
     {
         Task<IEnumerable<Cliente>> GetClientesEspañoles();
         Task<IEnumerable<Cliente>> GetCodigoPago2008();
+        Task<IEnumerable<Cliente>> GetClientesMadridRep11o30();
     }
 }
