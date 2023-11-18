@@ -28,7 +28,5 @@ namespace Persistence
         public DbSet<Pago> Pagos { get; set; }
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<Producto> Productos { get; set; }
-        public DbSet<Proveedor> Proveedors { get; set; }
-        public DbSet<ProveedorProducto> ProveedorProductos { get; set; }
     }
 }

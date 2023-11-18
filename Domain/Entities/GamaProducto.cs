@@ -5,7 +5,7 @@ namespace Domain.Entities;
 
 public partial class GamaProducto
 {
-    public int IdGama { get; set; }
+    public string Gama { get; set; } = null!;
 
     public string DescripcionTexto { get; set; }
 

@@ -57,8 +57,8 @@ public class DetallePedidoController : BaseApiController
         {
             return BadRequest();
         }
-        resultDto.IdDetallePedido = result.IdDetallePedido;
-        return CreatedAtAction(nameof(Post), new { id = resultDto.IdDetallePedido }, resultDto);
+        resultDto.CodigoPedido = result.CodigoPedido;
+        return CreatedAtAction(nameof(Post), new { id = resultDto.CodigoPedido }, resultDto);
     }
 
     [HttpPut("{id}")]

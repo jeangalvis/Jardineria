@@ -5,15 +5,15 @@ namespace Domain.Entities;
 
 public partial class Pago
 {
-    public int CodigoPago { get; set; }
+    public int CodigoCliente { get; set; }
 
-    public string FormaPago { get; set; }
+    public string FormaPago { get; set; } = null!;
 
-    public int? IdTransaccion { get; set; }
+    public string IdTransaccion { get; set; } = null!;
 
-    public DateTime? FechaPago { get; set; }
+    public DateOnly FechaPago { get; set; }
 
-    public decimal? Total { get; set; }
+    public decimal Total { get; set; }
 
-    public ICollection<Pedido> Pedidos { get; set; } = new List<Pedido>();
+    public Cliente CodigoClienteNavigation { get; set; } = null!;
 }

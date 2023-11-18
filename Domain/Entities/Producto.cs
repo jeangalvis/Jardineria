@@ -9,21 +9,21 @@ public partial class Producto
 
     public string Nombre { get; set; } = null!;
 
-    public string Dimensiones { get; set; } = null!;
+    public string Gama { get; set; } = null!;
 
-    public int Proveedor { get; set; }
+    public string Dimensiones { get; set; }
 
-    public string Descripcion { get; set; } = null!;
+    public string Proveedor { get; set; }
 
-    public short CantidadStock { get; set; }
+    public string Descripcion { get; set; }
 
-    public decimal PrecioActual { get; set; }
+    public short CantidadEnStock { get; set; }
 
-    public int IdGama { get; set; }
+    public decimal PrecioVenta { get; set; }
 
-    public virtual ICollection<DetallePedido> DetallePedidos { get; set; } = new List<DetallePedido>();
+    public decimal? PrecioProveedor { get; set; }
 
-    public virtual GamaProducto IdGamaNavigation { get; set; } = null!;
+    public ICollection<DetallePedido> DetallePedidos { get; set; } = new List<DetallePedido>();
 
-    public virtual ICollection<ProveedorProducto> ProveedorProductos { get; set; } = new List<ProveedorProducto>();
+    public GamaProducto GamaNavigation { get; set; } = null!;
 }

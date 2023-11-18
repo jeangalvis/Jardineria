@@ -57,8 +57,8 @@ public class GamaProductoController : BaseApiController
         {
             return BadRequest();
         }
-        resultDto.IdGama = result.IdGama;
-        return CreatedAtAction(nameof(Post), new { id = resultDto.IdGama }, resultDto);
+        resultDto.Gama = result.Gama;
+        return CreatedAtAction(nameof(Post), new { id = resultDto.Gama }, resultDto);
     }
 
     [HttpPut("{id}")]

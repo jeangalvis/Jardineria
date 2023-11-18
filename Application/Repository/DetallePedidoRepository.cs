@@ -12,10 +12,10 @@ public class DetallePedidoRepository : GenericRepository<DetallePedido>, IDetall
         _context = context;
     }
 
-    public override async Task<DetallePedido> GetByIdAsync(string id)
+    public override async Task<DetallePedido> GetByIdAsync(int id)
     {
         return await _context.DetallePedidos
-                            .FirstOrDefaultAsync(p => p.IdDetallePedido == id);
+                            .FirstOrDefaultAsync(p => p.CodigoPedido == id);
     }
 
     public override async Task<IEnumerable<DetallePedido>> GetAllAsync()

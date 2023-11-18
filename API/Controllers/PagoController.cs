@@ -57,8 +57,8 @@ public class PagoController : BaseApiController
         {
             return BadRequest();
         }
-        resultDto.CodigoPago = result.CodigoPago;
-        return CreatedAtAction(nameof(Post), new { id = resultDto.CodigoPago }, resultDto);
+        resultDto.IdTransaccion = result.IdTransaccion;
+        return CreatedAtAction(nameof(Post), new { id = resultDto.IdTransaccion }, resultDto);
     }
 
     [HttpPut("{id}")]

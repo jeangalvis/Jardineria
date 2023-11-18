@@ -15,25 +15,25 @@ public class OficinaConfiguration : IEntityTypeConfiguration<Oficina>
             .HasMaxLength(10)
             .HasColumnName("codigo_oficina");
         builder.Property(e => e.Ciudad)
-            .HasMaxLength(45)
+            .HasMaxLength(38)
             .HasColumnName("ciudad");
         builder.Property(e => e.CodigoPostal)
-            .HasMaxLength(45)
+            .HasMaxLength(10)
             .HasColumnName("codigo_postal");
         builder.Property(e => e.LineaDireccion1)
-            .HasMaxLength(45)
+            .HasMaxLength(50)
             .HasColumnName("linea_direccion1");
         builder.Property(e => e.LineaDireccion2)
-            .HasMaxLength(45)
+            .HasMaxLength(50)
             .HasColumnName("linea_direccion2");
         builder.Property(e => e.Pais)
-            .HasMaxLength(45)
+            .HasMaxLength(50)
             .HasColumnName("pais");
         builder.Property(e => e.Region)
-            .HasMaxLength(45)
+            .HasMaxLength(50)
             .HasColumnName("region");
         builder.Property(e => e.Telefono)
-            .HasMaxLength(45)
+            .HasMaxLength(20)
             .HasColumnName("telefono");
     }
 }

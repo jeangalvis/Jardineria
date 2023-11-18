@@ -12,8 +12,6 @@ namespace Domain.Interfaces
         IPago Pagos { get; }
         IPedido Pedidos { get; }
         IProducto Productos { get; }
-        IProveedor Proveedors { get; }
-        IProveedorProducto ProveedorProductos { get; }
         Task<int> SaveAsync();
     }
 }

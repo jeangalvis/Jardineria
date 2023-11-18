@@ -12,10 +12,10 @@ public class GamaProductoRepository : GenericRepository<GamaProducto>, IGamaProd
         _context = context;
     }
 
-    public override async Task<GamaProducto> GetByIdAsync(int id)
+    public override async Task<GamaProducto> GetByIdAsync(string id)
     {
         return await _context.GamaProductos
-                            .FirstOrDefaultAsync(p => p.IdGama == id);
+                            .FirstOrDefaultAsync(p => p.Gama == id);
     }
 
     public override async Task<IEnumerable<GamaProducto>> GetAllAsync()

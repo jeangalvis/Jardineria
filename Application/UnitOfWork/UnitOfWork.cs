@@ -17,8 +17,6 @@ namespace Application.UnitOfWork
         private IPago _pago;
         private IPedido _pedido;
         private IProducto _producto;
-        private IProveedor _proveedor;
-        private IProveedorProducto _proveedorProducto;
 
         public UnitOfWork(JardineriaContext _context)
         {
@@ -139,30 +137,6 @@ namespace Application.UnitOfWork
                     _producto = new ProductoRepository(context);
                 }
                 return _producto;
-            }
-        }
-
-        public IProveedor Proveedors
-        {
-            get
-            {
-                if (_proveedor == null)
-                {
-                    _proveedor = new ProveedorRepository(context);
-                }
-                return _proveedor;
-            }
-        }
-
-        public IProveedorProducto ProveedorProductos
-        {
-            get
-            {
-                if (_proveedorProducto == null)
-                {
-                    _proveedorProducto = new ProveedorProductoRepository(context);
-                }
-                return _proveedorProducto;
             }
         }
 

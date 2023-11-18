@@ -11,16 +11,18 @@ namespace API.Dtos
 
         public string Nombre { get; set; } = null!;
 
-        public string Dimensiones { get; set; } = null!;
+        public string Gama { get; set; } = null!;
 
-        public int Proveedor { get; set; }
+        public string Dimensiones { get; set; }
 
-        public string Descripcion { get; set; } = null!;
+        public string Proveedor { get; set; }
 
-        public short CantidadStock { get; set; }
+        public string Descripcion { get; set; }
 
-        public decimal PrecioActual { get; set; }
+        public short CantidadEnStock { get; set; }
 
-        public int IdGama { get; set; }
+        public decimal PrecioVenta { get; set; }
+
+        public decimal? PrecioProveedor { get; set; }
     }
 }

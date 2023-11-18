@@ -12,10 +12,10 @@ public class PagoRepository : GenericRepository<Pago>, IPago
         _context = context;
     }
 
-    public override async Task<Pago> GetByIdAsync(int id)
+    public override async Task<Pago> GetByIdAsync(string id)
     {
         return await _context.Pagos
-                            .FirstOrDefaultAsync(p => p.CodigoPago == id);
+                            .FirstOrDefaultAsync(p => p.IdTransaccion == id);
     }
 
     public override async Task<IEnumerable<Pago>> GetAllAsync()

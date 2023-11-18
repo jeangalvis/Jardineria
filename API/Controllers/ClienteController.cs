@@ -57,8 +57,8 @@ public class ClienteController : BaseApiController
         {
             return BadRequest();
         }
-        resultDto.IdCliente = result.IdCliente;
-        return CreatedAtAction(nameof(Post), new { id = resultDto.IdCliente }, resultDto);
+        resultDto.CodigoCliente = result.CodigoCliente;
+        return CreatedAtAction(nameof(Post), new { id = resultDto.CodigoCliente }, resultDto);
     }
 
     [HttpPut("{id}")]

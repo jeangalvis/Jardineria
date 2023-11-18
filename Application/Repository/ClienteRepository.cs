@@ -15,7 +15,7 @@ public class ClienteRepository : GenericRepository<Cliente>, ICliente
     public override async Task<Cliente> GetByIdAsync(int id)
     {
         return await _context.Clientes
-                            .FirstOrDefaultAsync(p => p.IdCliente == id);
+                            .FirstOrDefaultAsync(p => p.CodigoCliente == id);
     }
 
     public override async Task<IEnumerable<Cliente>> GetAllAsync()

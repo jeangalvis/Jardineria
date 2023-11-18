@@ -7,7 +7,7 @@ namespace API.Dtos
 {
     public class GamaProductoDto
     {
-        public int IdGama { get; set; }
+        public string Gama { get; set; } = null!;
 
         public string DescripcionTexto { get; set; }
 

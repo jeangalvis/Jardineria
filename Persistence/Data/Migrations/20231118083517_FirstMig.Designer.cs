@@ -11,7 +11,7 @@ using Persistence;
 namespace Persistence.Data.Migrations
 {
     [DbContext(typeof(JardineriaContext))]
-    [Migration("20231117073039_FirstMig")]
+    [Migration("20231118083517_FirstMig")]
     partial class FirstMig
     {
         /// <inheritdoc />
@@ -24,28 +24,32 @@ namespace Persistence.Data.Migrations
 
             modelBuilder.Entity("Domain.Entities.Cliente", b =>
                 {
-                    b.Property<int>("IdCliente")
+                    b.Property<int>("CodigoCliente")
                         .HasColumnType("int")
-                        .HasColumnName("id_cliente");
+                        .HasColumnName("codigo_cliente");
 
                     b.Property<string>("ApellidoContacto")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)")
                         .HasColumnName("apellido_contacto");
 
                     b.Property<string>("Ciudad")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("ciudad");
 
+                    b.Property<int?>("CodigoEmpleadoRepVentas")
+                        .HasColumnType("int")
+                        .HasColumnName("codigo_empleado_rep_ventas");
+
                     b.Property<string>("CodigoPostal")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)")
                         .HasColumnName("codigo_postal");
 
                     b.Property<string>("Fax")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(15)
+                        .HasColumnType("varchar(15)")
                         .HasColumnName("fax");
 
                     b.Property<decimal?>("LimiteCredito")
@@ -54,57 +58,50 @@ namespace Persistence.Data.Migrations
                         .HasColumnName("limite_credito");
 
                     b.Property<string>("LineaDireccion1")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("linea_direccion1");
 
                     b.Property<string>("LineaDireccion2")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("linea_direccion2");
 
                     b.Property<string>("NombreCliente")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(58)
+                        .HasColumnType("varchar(58)")
                         .HasColumnName("nombre_cliente");
 
                     b.Property<string>("NombreContacto")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)")
                         .HasColumnName("nombre_contacto");
 
                     b.Property<string>("Pais")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("pais");
 
                     b.Property<string>("Region")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("region");
 
                     b.Property<string>("Telefono")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(15)
+                        .HasColumnType("varchar(15)")
                         .HasColumnName("telefono");
 
-                    b.HasKey("IdCliente")
+                    b.HasKey("CodigoCliente")
                         .HasName("PRIMARY");
+
+                    b.HasIndex(new[] { "CodigoEmpleadoRepVentas" }, "codigo_empleado_rep_ventas");
 
                     b.ToTable("cliente", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.DetallePedido", b =>
                 {
-                    b.Property<string>("IdDetallePedido")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
-                        .HasColumnName("id_detalle_pedido");
-
-                    b.Property<int?>("Cantidad")
-                        .HasColumnType("int")
-                        .HasColumnName("cantidad");
-
                     b.Property<int>("CodigoPedido")
                         .HasColumnType("int")
                         .HasColumnName("codigo_pedido");
@@ -114,21 +111,24 @@ namespace Persistence.Data.Migrations
                         .HasColumnType("varchar(15)")
                         .HasColumnName("codigo_producto");
 
-                    b.Property<short?>("NumeroLinea")
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int")
+                        .HasColumnName("cantidad");
+
+                    b.Property<short>("NumeroLinea")
                         .HasColumnType("smallint")
                         .HasColumnName("numero_linea");
 
-                    b.Property<decimal?>("PrecioUnidad")
+                    b.Property<decimal>("PrecioUnidad")
                         .HasPrecision(15, 2)
                         .HasColumnType("decimal(15,2)")
                         .HasColumnName("precio_unidad");
 
-                    b.HasKey("IdDetallePedido")
-                        .HasName("PRIMARY");
+                    b.HasKey("CodigoPedido", "CodigoProducto")
+                        .HasName("PRIMARY")
+                        .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
 
-                    b.HasIndex(new[] { "CodigoPedido" }, "fk_detalle_pedido_pedido_idx");
-
-                    b.HasIndex(new[] { "CodigoProducto" }, "fk_detalle_pedido_producto1_idx");
+                    b.HasIndex(new[] { "CodigoProducto" }, "codigo_producto");
 
                     b.ToTable("detalle_pedido", (string)null);
                 });
@@ -139,15 +139,15 @@ namespace Persistence.Data.Migrations
                         .HasColumnType("int")
                         .HasColumnName("codigo_empleado");
 
-                    b.Property<string>("Apellido1")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
-                        .HasColumnName("apellido1");
-
                     b.Property<string>("Apellido2")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(58)
+                        .HasColumnType("varchar(58)")
                         .HasColumnName("apellido2");
+
+                    b.Property<string>("Apellidol")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("apellidol");
 
                     b.Property<int?>("CodigoJefe")
                         .HasColumnType("int")
@@ -159,47 +159,48 @@ namespace Persistence.Data.Migrations
                         .HasColumnName("codigo_oficina");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("email");
 
                     b.Property<string>("Extension")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)")
                         .HasColumnName("extension");
 
                     b.Property<string>("Nombre")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("nombre");
 
                     b.Property<string>("Puesto")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("puesto");
 
                     b.HasKey("CodigoEmpleado")
                         .HasName("PRIMARY");
 
-                    b.HasIndex(new[] { "CodigoJefe" }, "fk_empleado_empleado1_idx");
+                    b.HasIndex(new[] { "CodigoJefe" }, "codigo_jefe");
 
-                    b.HasIndex(new[] { "CodigoOficina" }, "fk_empleado_oficina1_idx");
+                    b.HasIndex(new[] { "CodigoOficina" }, "codigo_oficina");
 
                     b.ToTable("empleado", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.GamaProducto", b =>
                 {
-                    b.Property<int>("IdGama")
-                        .HasColumnType("int")
-                        .HasColumnName("id_gama");
+                    b.Property<string>("Gama")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("gama");
 
                     b.Property<string>("DescripcionHtml")
-                        .HasColumnType("tinytext")
+                        .HasColumnType("text")
                         .HasColumnName("descripcion_html");
 
                     b.Property<string>("DescripcionTexto")
-                        .HasColumnType("tinytext")
+                        .HasColumnType("text")
                         .HasColumnName("descripcion_texto");
 
                     b.Property<string>("Imagen")
@@ -207,7 +208,7 @@ namespace Persistence.Data.Migrations
                         .HasColumnType("varchar(256)")
                         .HasColumnName("imagen");
 
-                    b.HasKey("IdGama")
+                    b.HasKey("Gama")
                         .HasName("PRIMARY");
 
                     b.ToTable("gama_producto", (string)null);
@@ -221,38 +222,38 @@ namespace Persistence.Data.Migrations
                         .HasColumnName("codigo_oficina");
 
                     b.Property<string>("Ciudad")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(38)
+                        .HasColumnType("varchar(38)")
                         .HasColumnName("ciudad");
 
                     b.Property<string>("CodigoPostal")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)")
                         .HasColumnName("codigo_postal");
 
                     b.Property<string>("LineaDireccion1")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("linea_direccion1");
 
                     b.Property<string>("LineaDireccion2")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("linea_direccion2");
 
                     b.Property<string>("Pais")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("pais");
 
                     b.Property<string>("Region")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("region");
 
                     b.Property<string>("Telefono")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
                         .HasColumnName("telefono");
 
                     b.HasKey("CodigoOficina")
@@ -263,30 +264,32 @@ namespace Persistence.Data.Migrations
 
             modelBuilder.Entity("Domain.Entities.Pago", b =>
                 {
-                    b.Property<int>("CodigoPago")
+                    b.Property<int>("CodigoCliente")
                         .HasColumnType("int")
-                        .HasColumnName("codigo_pago");
+                        .HasColumnName("codigo_cliente");
 
-                    b.Property<DateTime?>("FechaPago")
-                        .HasColumnType("datetime")
+                    b.Property<string>("IdTransaccion")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("id_transaccion");
+
+                    b.Property<DateOnly>("FechaPago")
+                        .HasColumnType("date")
                         .HasColumnName("fecha_pago");
 
                     b.Property<string>("FormaPago")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(48)
+                        .HasColumnType("varchar(48)")
                         .HasColumnName("forma_pago");
 
-                    b.Property<int?>("IdTransaccion")
-                        .HasColumnType("int")
-                        .HasColumnName("id_transaccion");
-
-                    b.Property<decimal?>("Total")
+                    b.Property<decimal>("Total")
                         .HasPrecision(15, 2)
                         .HasColumnType("decimal(15,2)")
                         .HasColumnName("total");
 
-                    b.HasKey("CodigoPago")
-                        .HasName("PRIMARY");
+                    b.HasKey("CodigoCliente", "IdTransaccion")
+                        .HasName("PRIMARY")
+                        .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
 
                     b.ToTable("pago", (string)null);
                 });
@@ -301,44 +304,31 @@ namespace Persistence.Data.Migrations
                         .HasColumnType("int")
                         .HasColumnName("codigo_cliente");
 
-                    b.Property<int>("CodigoEmpleado")
-                        .HasColumnType("int")
-                        .HasColumnName("codigo_empleado");
-
-                    b.Property<int>("CodigoPago")
-                        .HasColumnType("int")
-                        .HasColumnName("codigo_pago");
-
                     b.Property<string>("Comentarios")
                         .HasColumnType("text")
                         .HasColumnName("comentarios");
 
                     b.Property<string>("Estado")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(15)
+                        .HasColumnType("varchar(15)")
                         .HasColumnName("estado");
 
-                    b.Property<string>("FechaEntrega")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                    b.Property<DateOnly?>("FechaEntrega")
+                        .HasColumnType("date")
                         .HasColumnName("fecha_entrega");
 
-                    b.Property<DateTime?>("FechaEsperada")
-                        .HasColumnType("datetime")
+                    b.Property<DateOnly>("FechaEsperada")
+                        .HasColumnType("date")
                         .HasColumnName("fecha_esperada");
 
-                    b.Property<DateTime?>("FechaPedido")
-                        .HasColumnType("datetime")
+                    b.Property<DateOnly>("FechaPedido")
+                        .HasColumnType("date")
                         .HasColumnName("fecha_pedido");
 
                     b.HasKey("CodigoPedido")
                         .HasName("PRIMARY");
 
-                    b.HasIndex(new[] { "CodigoCliente" }, "fk_pedido_cliente1_idx");
-
-                    b.HasIndex(new[] { "CodigoEmpleado" }, "fk_pedido_empleado1_idx");
-
-                    b.HasIndex(new[] { "CodigoPago" }, "fk_pedido_pago1_idx");
+                    b.HasIndex(new[] { "CodigoCliente" }, "codigo_cliente");
 
                     b.ToTable("pedido", (string)null);
                 });
@@ -350,91 +340,50 @@ namespace Persistence.Data.Migrations
                         .HasColumnType("varchar(15)")
                         .HasColumnName("codigo_producto");
 
-                    b.Property<short>("CantidadStock")
+                    b.Property<short>("CantidadEnStock")
                         .HasColumnType("smallint")
-                        .HasColumnName("cantidad_stock");
+                        .HasColumnName("cantidad_en_stock");
 
                     b.Property<string>("Descripcion")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasColumnType("text")
                         .HasColumnName("descripcion");
 
                     b.Property<string>("Dimensiones")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)")
                         .HasColumnName("dimensiones");
 
-                    b.Property<int>("IdGama")
-                        .HasColumnType("int")
-                        .HasColumnName("id_gama");
+                    b.Property<string>("Gama")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("gama");
 
                     b.Property<string>("Nombre")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
+                        .HasMaxLength(70)
+                        .HasColumnType("varchar(70)")
                         .HasColumnName("nombre");
-
-                    b.Property<decimal>("PrecioActual")
-                        .HasPrecision(15, 2)
-                        .HasColumnType("decimal(15,2)")
-                        .HasColumnName("precio_actual");
-
-                    b.Property<int>("Proveedor")
-                        .HasColumnType("int")
-                        .HasColumnName("proveedor");
-
-                    b.HasKey("CodigoProducto")
-                        .HasName("PRIMARY");
-
-                    b.HasIndex(new[] { "IdGama" }, "fk_producto_gama_producto1_idx");
-
-                    b.ToTable("producto", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.Proveedor", b =>
-                {
-                    b.Property<int>("IdProveedor")
-                        .HasColumnType("int")
-                        .HasColumnName("id_proveedor");
-
-                    b.Property<string>("Nombre")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
-                        .HasColumnName("nombre");
-
-                    b.HasKey("IdProveedor")
-                        .HasName("PRIMARY");
-
-                    b.ToTable("proveedor", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.ProveedorProducto", b =>
-                {
-                    b.Property<int>("IdProvprod")
-                        .HasColumnType("int")
-                        .HasColumnName("id_provprod");
 
                     b.Property<decimal?>("PrecioProveedor")
                         .HasPrecision(15, 2)
                         .HasColumnType("decimal(15,2)")
                         .HasColumnName("precio_proveedor");
 
-                    b.Property<string>("ProductoCodigoProducto")
-                        .HasMaxLength(15)
-                        .HasColumnType("varchar(15)")
-                        .HasColumnName("producto_codigo_producto");
+                    b.Property<decimal>("PrecioVenta")
+                        .HasPrecision(15, 2)
+                        .HasColumnType("decimal(15,2)")
+                        .HasColumnName("precio_venta");
 
-                    b.Property<int>("ProveedorId")
-                        .HasColumnType("int")
-                        .HasColumnName("proveedor_id");
+                    b.Property<string>("Proveedor")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("proveedor");
 
-                    b.HasKey("IdProvprod")
+                    b.HasKey("CodigoProducto")
                         .HasName("PRIMARY");
 
-                    b.HasIndex(new[] { "ProductoCodigoProducto" }, "fk_proveedor_producto_producto1_idx");
+                    b.HasIndex(new[] { "Gama" }, "gama");
 
-                    b.HasIndex(new[] { "ProveedorId" }, "fk_proveedor_producto_proveedor1_idx");
-
-                    b.ToTable("proveedor_producto", (string)null);
+                    b.ToTable("producto", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.RefreshToken", b =>
@@ -520,18 +469,29 @@ namespace Persistence.Data.Migrations
                     b.ToTable("userRols", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.Cliente", b =>
+                {
+                    b.HasOne("Domain.Entities.Empleado", "CodigoEmpleadoRepVentasNavigation")
+                        .WithMany("Clientes")
+                        .HasForeignKey("CodigoEmpleadoRepVentas")
+                        .HasConstraintName("cliente_ibfk_1");
+
+                    b.Navigation("CodigoEmpleadoRepVentasNavigation");
+                });
+
             modelBuilder.Entity("Domain.Entities.DetallePedido", b =>
                 {
                     b.HasOne("Domain.Entities.Pedido", "CodigoPedidoNavigation")
                         .WithMany("DetallePedidos")
                         .HasForeignKey("CodigoPedido")
                         .IsRequired()
-                        .HasConstraintName("fk_detalle_pedido_pedido");
+                        .HasConstraintName("detalle_pedido_ibfk_1");
 
                     b.HasOne("Domain.Entities.Producto", "CodigoProductoNavigation")
                         .WithMany("DetallePedidos")
                         .HasForeignKey("CodigoProducto")
-                        .HasConstraintName("fk_detalle_pedido_producto1");
+                        .IsRequired()
+                        .HasConstraintName("detalle_pedido_ibfk_2");
 
                     b.Navigation("CodigoPedidoNavigation");
 
@@ -543,16 +503,27 @@ namespace Persistence.Data.Migrations
                     b.HasOne("Domain.Entities.Empleado", "CodigoJefeNavigation")
                         .WithMany("InverseCodigoJefeNavigation")
                         .HasForeignKey("CodigoJefe")
-                        .HasConstraintName("fk_empleado_jefe");
+                        .HasConstraintName("empleado_ibfk_2");
 
                     b.HasOne("Domain.Entities.Oficina", "CodigoOficinaNavigation")
                         .WithMany("Empleados")
                         .HasForeignKey("CodigoOficina")
-                        .HasConstraintName("fk_empleado_oficina1");
+                        .HasConstraintName("empleado_ibfk_1");
 
                     b.Navigation("CodigoJefeNavigation");
 
                     b.Navigation("CodigoOficinaNavigation");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Pago", b =>
+                {
+                    b.HasOne("Domain.Entities.Cliente", "CodigoClienteNavigation")
+                        .WithMany("Pagos")
+                        .HasForeignKey("CodigoCliente")
+                        .IsRequired()
+                        .HasConstraintName("pago_ibfk_1");
+
+                    b.Navigation("CodigoClienteNavigation");
                 });
 
             modelBuilder.Entity("Domain.Entities.Pedido", b =>
@@ -561,54 +532,19 @@ namespace Persistence.Data.Migrations
                         .WithMany("Pedidos")
                         .HasForeignKey("CodigoCliente")
                         .IsRequired()
-                        .HasConstraintName("fk_pedido_cliente1");
-
-                    b.HasOne("Domain.Entities.Empleado", "CodigoEmpleadoNavigation")
-                        .WithMany("Pedidos")
-                        .HasForeignKey("CodigoEmpleado")
-                        .IsRequired()
-                        .HasConstraintName("fk_pedido_empleado1");
-
-                    b.HasOne("Domain.Entities.Pago", "CodigoPagoNavigation")
-                        .WithMany("Pedidos")
-                        .HasForeignKey("CodigoPago")
-                        .IsRequired()
-                        .HasConstraintName("fk_pedido_pago1");
+                        .HasConstraintName("pedido_ibfk_1");
 
                     b.Navigation("CodigoClienteNavigation");
-
-                    b.Navigation("CodigoEmpleadoNavigation");
-
-                    b.Navigation("CodigoPagoNavigation");
                 });
 
             modelBuilder.Entity("Domain.Entities.Producto", b =>
                 {
-                    b.HasOne("Domain.Entities.GamaProducto", "IdGamaNavigation")
+                    b.HasOne("Domain.Entities.GamaProducto", "GamaNavigation")
                         .WithMany("Productos")
-                        .HasForeignKey("IdGama")
-                        .IsRequired()
-                        .HasConstraintName("fk_producto_gama_producto1");
+                        .HasForeignKey("Gama")
+                        .HasConstraintName("producto_ibfk_1");
 
-                    b.Navigation("IdGamaNavigation");
-                });
-
-            modelBuilder.Entity("Domain.Entities.ProveedorProducto", b =>
-                {
-                    b.HasOne("Domain.Entities.Producto", "ProductoCodigoProductoNavigation")
-                        .WithMany("ProveedorProductos")
-                        .HasForeignKey("ProductoCodigoProducto")
-                        .HasConstraintName("fk_proveedor_producto_producto1");
-
-                    b.HasOne("Domain.Entities.Proveedor", "Proveedor")
-                        .WithMany("ProveedorProductos")
-                        .HasForeignKey("ProveedorId")
-                        .IsRequired()
-                        .HasConstraintName("fk_proveedor_producto_proveedor1");
-
-                    b.Navigation("ProductoCodigoProductoNavigation");
-
-                    b.Navigation("Proveedor");
+                    b.Navigation("GamaNavigation");
                 });
 
             modelBuilder.Entity("Domain.Entities.RefreshToken", b =>
@@ -643,14 +579,16 @@ namespace Persistence.Data.Migrations
 
             modelBuilder.Entity("Domain.Entities.Cliente", b =>
                 {
+                    b.Navigation("Pagos");
+
                     b.Navigation("Pedidos");
                 });
 
             modelBuilder.Entity("Domain.Entities.Empleado", b =>
                 {
-                    b.Navigation("InverseCodigoJefeNavigation");
+                    b.Navigation("Clientes");
 
-                    b.Navigation("Pedidos");
+                    b.Navigation("InverseCodigoJefeNavigation");
                 });
 
             modelBuilder.Entity("Domain.Entities.GamaProducto", b =>
@@ -663,11 +601,6 @@ namespace Persistence.Data.Migrations
                     b.Navigation("Empleados");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Pago", b =>
-                {
-                    b.Navigation("Pedidos");
-                });
-
             modelBuilder.Entity("Domain.Entities.Pedido", b =>
                 {
                     b.Navigation("DetallePedidos");
@@ -676,13 +609,6 @@ namespace Persistence.Data.Migrations
             modelBuilder.Entity("Domain.Entities.Producto", b =>
                 {
                     b.Navigation("DetallePedidos");
-
-                    b.Navigation("ProveedorProductos");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Proveedor", b =>
-                {
-                    b.Navigation("ProveedorProductos");
                 });
 
             modelBuilder.Entity("Domain.Entities.Rol", b =>
