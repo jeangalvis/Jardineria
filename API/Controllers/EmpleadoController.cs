@@ -104,4 +104,62 @@ public class EmpleadoController : BaseApiController
         var lstResultDto = _mapper.Map<List<EmpleadoDto>>(result.registros);
         return new Pager<EmpleadoDto>(lstResultDto, result.totalRegistros, resultParams.PageIndex, resultParams.PageSize, resultParams.Search);
     }
+    [HttpGet("GetEmpleadosJefeDelJefe")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<EmpleadoJefeJefeDto>>> Get3()
+    {
+        var results = await _unitOfWork.Empleados
+                                    .GetEmpleadosJefeDelJefe();
+        return _mapper.Map<List<EmpleadoJefeJefeDto>>(results);
+    }
+    [HttpGet("GetEmpleadosSinClienteConOficina")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<EmpleadoOficinaDto>>> Get4()
+    {
+        var results = await _unitOfWork.Empleados
+                                    .GetEmpleadosSinClienteConOficina();
+        return _mapper.Map<List<EmpleadoOficinaDto>>(results);
+    }
+    [HttpGet("GetEmpleadosSinClienteSinOficina")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<EmpleadoDto>>> Get5()
+    {
+        var results = await _unitOfWork.Empleados
+                                    .GetEmpleadosSinClienteSinOficina();
+        return _mapper.Map<List<EmpleadoDto>>(results);
+    }
+    [HttpGet("GetEmpleadosSinClienteSinJefe")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<EmpleadoDto>>> Get6()
+    {
+        var results = await _unitOfWork.Empleados
+                                    .GetEmpleadosSinClienteSinJefe();
+        return _mapper.Map<List<EmpleadoDto>>(results);
+    }
+    [HttpGet("GetTotalEmpleados")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<TotalEmpleadosDto>> Get7()
+    {
+        var results = await _unitOfWork.Empleados.GetTotalEmpleados();
+        return _mapper.Map<TotalEmpleadosDto>(results);
+    }
+    [HttpGet("GetRepVentasConCantidadClientes")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<RepVentasConClientesDto>>> Get8()
+    {
+        var results = await _unitOfWork.Empleados.GetRepVentasConCantidadClientes();
+        return _mapper.Map<List<RepVentasConClientesDto>>(results);
+    }
 }

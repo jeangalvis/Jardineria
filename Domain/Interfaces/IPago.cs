@@ -6,5 +6,6 @@ namespace Domain.Interfaces
     {
         Task<IEnumerable<Pago>> GetPagos2008Paypal();
         Task<IEnumerable<Pago>> GetFormasPago();
+        Task<decimal> GetPagoMedio();
     }
 }

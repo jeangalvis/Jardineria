@@ -112,3 +112,149 @@ Body en formato JSON
     cuyo representante de ventas tenga el código de empleado 11 o 30.
 
 `/api/Cliente/GetClientesMadridRep11o30`
+
+12. Obtén un listado con el nombre de cada cliente y el nombre y apellido de su
+    representante de ventas.
+
+`/api/Cliente/GetClienteRepresentanteVenta`
+
+13. Muestra el nombre de los clientes que hayan realizado pagos junto con el
+    nombre de sus representantes de ventas.
+
+`/api/Cliente/GetClienteRepresentanteVentaPago`
+
+14. Muestra el nombre de los clientes que no hayan realizado pagos junto con
+    el nombre de sus representantes de ventas.
+
+`/api/Cliente/GetClienteRepresentanteVentaNoPago`
+
+15. Devuelve el nombre de los clientes que han hecho pagos y el nombre de sus
+    representantes junto con la ciudad de la oficina a la que pertenece el
+    representante.
+
+`/api/Cliente/GetClienteRepresentanteVentaPagoOficina`
+
+16. Devuelve el nombre de los clientes que no hayan hecho pagos y el nombre
+    de sus representantes junto con la ciudad de la oficina a la que pertenece el
+    representante.
+
+`/api/Cliente/GetClienteRepresentanteVentaNoPagoOficina`
+
+17. Devuelve un listado que muestre el nombre de cada empleados, el nombre
+    de su jefe y el nombre del jefe de sus jefe.
+
+`/api/Empleado/GetEmpleadosJefeDelJefe`
+
+18. Devuelve el nombre de los clientes a los que no se les ha entregado a
+    tiempo un pedido.
+
+`/api/Cliente/GetClientePedidoEntregadoTarde`
+
+19. Devuelve un listado de las diferentes gamas de producto que ha comprado
+    cada cliente.
+
+`/api/Cliente/GetGamaProductosxCliente`
+
+20. Devuelve un listado que muestre solamente los clientes que no han
+    realizado ningún pago.
+
+`/api/Cliente/GetClientesNoHanPagado`
+
+21. Devuelve un listado que muestre los clientes que no han realizado ningún
+    pago y los que no han realizado ningún pedido.
+
+`/api/Cliente/GetClientesNoHanPagadoNiPedido`
+
+22. Devuelve un listado que muestre solamente los empleados que no tienen un
+    cliente asociado junto con los datos de la oficina donde trabajan.
+
+`/api/Empleado/GetEmpleadosSinClienteConOficina`
+
+23. Devuelve un listado que muestre los empleados que no tienen una oficina
+    asociada y los que no tienen un cliente asociado.
+
+`/api/Empleado/GetEmpleadosSinClienteSinOficina`
+
+24. Devuelve un listado de los productos que nunca han aparecido en un
+    pedido.
+
+`/api/Producto/GetProductosSinPedido`
+
+25. Devuelve un listado de los productos que nunca han aparecido en un
+    pedido. El resultado debe mostrar el nombre, la descripción y la imagen del
+    producto.
+
+`/api/Producto/GetProductosGamaSinPedido`
+
+26. Devuelve las oficinas donde no trabajan ninguno de los empleados que
+    hayan sido los representantes de ventas de algún cliente que haya realizado
+    la compra de algún producto de la gama Frutales.
+
+`/api/Oficina/GetOficinasNoTrabajanRepresentantes`
+
+27. Devuelve un listado con los clientes que han realizado algún pedido pero no
+    han realizado ningún pago.
+
+`/api/Cliente/GetClientesHanPagadoNoPedido`
+
+28. Devuelve un listado con los datos de los empleados que no tienen clientes
+    asociados y el nombre de su jefe asociado.
+
+`/api/Empleado/GetEmpleadosSinClienteSinJefe`
+
+29. ¿Cuántos empleados hay en la compañía?
+
+`/api/Empleado/GetTotalEmpleados`
+
+30. ¿Cuántos clientes tiene cada país?
+
+`/api/Cliente/GetClientesPorPais`
+
+31. ¿Cuál fue el pago medio en 2009?
+
+`/api/Pago/GetPagoMedio`
+
+32. ¿Cuántos pedidos hay en cada estado? Ordena el resultado de forma
+    descendente por el número de pedidos.
+
+`/api/Pedido/GetPedidoPorEstados`
+
+33. ¿Cuántos clientes existen con domicilio en la ciudad de Madrid?
+
+`/api/Cliente/GetClientesPorCiudad`
+
+34. ¿Calcula cuántos clientes tiene cada una de las ciudades que empiezan
+    por M?
+
+`/api/Cliente/GetClientesPorCiudadM`
+
+35. Devuelve el nombre de los representantes de ventas y el número de clientes
+    al que atiende cada uno.
+
+`/api/Empleado/GetRepVentasConCantidadClientes`
+
+36. Calcula el número de clientes que no tiene asignado representante de
+    ventas.
+
+`/api/Cliente/GetTotalClientesSinRep`
+
+37. Calcula la fecha del primer y último pago realizado por cada uno de los
+    clientes. El listado deberá mostrar el nombre y los apellidos de cada cliente.
+
+`/api/Cliente/GetPrimerUltimoPago`
+
+38. Calcula el número de productos diferentes que hay en cada uno de los
+    pedidos.
+
+`/api/Pedido/GetPedidoConCantidadProductos`
+
+39. Calcula la suma de la cantidad total de todos los productos que aparecen en
+    cada uno de los pedidos.
+
+`/api/Pedido/GetPedidosConSumaCantidadTotal`
+
+40. Devuelve un listado de los 20 productos más vendidos y el número total de
+    unidades que se han vendido de cada uno. El listado deberá estar ordenado
+    por el número total de unidades vendidas.
+
+`/api/Producto/GetProductosMasVendidos`

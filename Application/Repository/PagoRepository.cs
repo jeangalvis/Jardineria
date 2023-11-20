@@ -54,4 +54,10 @@ public class PagoRepository : GenericRepository<Pago>, IPago
                                 })
                                 .ToListAsync();
     }
+    public async Task<decimal> GetPagoMedio()
+    {
+        return await _context.Pagos
+                                .Where(p => p.FechaPago.Year == 2009)
+                                .AverageAsync(p => p.Total);
+    }
 }

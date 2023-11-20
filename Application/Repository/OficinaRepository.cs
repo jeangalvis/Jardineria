@@ -37,4 +37,10 @@ public class OficinaRepository : GenericRepository<Oficina>, IOficina
                                  .ToListAsync();
         return (totalRegistros, registros);
     }
+    public async Task<IEnumerable<Oficina>> GetOficinasNoTrabajanRepresentantes()
+    {
+        return await _context.Oficinas
+                            .Where(o => !o.Empleados.Any(e => e.Clientes.Any(c => c.Pedidos.Any(p => p.DetallePedidos.Any(dp => dp.CodigoProductoNavigation.GamaNavigation.Gama == "Frutales")))))
+                            .ToListAsync();
+    }
 }

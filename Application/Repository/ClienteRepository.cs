@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Views;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -56,6 +57,214 @@ public class ClienteRepository : GenericRepository<Cliente>, ICliente
     {
         return await _context.Clientes
                                     .Where(p => p.Ciudad.ToLower() == "Madrid".ToLower() && p.CodigoEmpleadoRepVentas == 11 || p.CodigoEmpleadoRepVentas == 30)
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<Cliente>> GetClienteRepresentanteVenta()
+    {
+        return await _context.Clientes
+                                    .Include(p => p.CodigoEmpleadoRepVentasNavigation)
+                                    .Select(p => new Cliente
+                                    {
+                                        NombreCliente = p.NombreCliente,
+                                        CodigoEmpleadoRepVentasNavigation = new Empleado
+                                        {
+                                            Nombre = p.CodigoEmpleadoRepVentasNavigation.Nombre,
+                                            Apellidol = p.CodigoEmpleadoRepVentasNavigation.Apellidol,
+                                            Apellido2 = p.CodigoEmpleadoRepVentasNavigation.Apellido2
+                                        }
+                                    })
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<Cliente>> GetClienteRepresentanteVentaPago()
+    {
+        return await _context.Clientes
+                                    .Include(p => p.CodigoEmpleadoRepVentasNavigation)
+                                    .Include(p => p.Pagos)
+                                    .Where(p => p.Pagos.Any())
+                                    .Select(p => new Cliente
+                                    {
+                                        NombreCliente = p.NombreCliente,
+                                        CodigoEmpleadoRepVentasNavigation = new Empleado
+                                        {
+                                            Nombre = p.CodigoEmpleadoRepVentasNavigation.Nombre,
+                                            Apellidol = p.CodigoEmpleadoRepVentasNavigation.Apellidol,
+                                            Apellido2 = p.CodigoEmpleadoRepVentasNavigation.Apellido2
+                                        }
+                                    })
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<Cliente>> GetClienteRepresentanteVentaNoPago()
+    {
+        return await _context.Clientes
+                                    .Include(p => p.CodigoEmpleadoRepVentasNavigation)
+                                    .Include(p => p.Pagos)
+                                    .Where(p => !p.Pagos.Any())
+                                    .Select(p => new Cliente
+                                    {
+                                        NombreCliente = p.NombreCliente,
+                                        CodigoEmpleadoRepVentasNavigation = new Empleado
+                                        {
+                                            Nombre = p.CodigoEmpleadoRepVentasNavigation.Nombre,
+                                            Apellidol = p.CodigoEmpleadoRepVentasNavigation.Apellidol,
+                                            Apellido2 = p.CodigoEmpleadoRepVentasNavigation.Apellido2
+                                        }
+                                    })
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<Cliente>> GetClienteRepresentanteVentaPagoOficina()
+    {
+        return await _context.Clientes
+                                    .Include(p => p.Pagos)
+                                    .Include(p => p.CodigoEmpleadoRepVentasNavigation)
+                                    .ThenInclude(p => p.CodigoOficinaNavigation)
+                                    .Where(p => p.Pagos.Any() && p.CodigoEmpleadoRepVentasNavigation.CodigoOficinaNavigation.CodigoOficina == p.CodigoEmpleadoRepVentasNavigation.CodigoOficina)
+                                    .Select(p => new Cliente
+                                    {
+                                        NombreCliente = p.NombreCliente,
+                                        CodigoEmpleadoRepVentasNavigation = new Empleado
+                                        {
+                                            Nombre = p.CodigoEmpleadoRepVentasNavigation.Nombre,
+                                            Apellidol = p.CodigoEmpleadoRepVentasNavigation.Apellidol,
+                                            Apellido2 = p.CodigoEmpleadoRepVentasNavigation.Apellido2,
+                                            CodigoOficinaNavigation = new Oficina
+                                            {
+                                                Ciudad = p.Ciudad
+                                            }
+                                        }
+                                    })
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<Cliente>> GetClienteRepresentanteVentaNoPagoOficina()
+    {
+        return await _context.Clientes
+                                    .Include(p => p.Pagos)
+                                    .Include(p => p.CodigoEmpleadoRepVentasNavigation)
+                                    .ThenInclude(p => p.CodigoOficinaNavigation)
+                                    .Where(p => !p.Pagos.Any() && p.CodigoEmpleadoRepVentasNavigation.CodigoOficinaNavigation.CodigoOficina == p.CodigoEmpleadoRepVentasNavigation.CodigoOficina)
+                                    .Select(p => new Cliente
+                                    {
+                                        NombreCliente = p.NombreCliente,
+                                        CodigoEmpleadoRepVentasNavigation = new Empleado
+                                        {
+                                            Nombre = p.CodigoEmpleadoRepVentasNavigation.Nombre,
+                                            Apellidol = p.CodigoEmpleadoRepVentasNavigation.Apellidol,
+                                            Apellido2 = p.CodigoEmpleadoRepVentasNavigation.Apellido2,
+                                            CodigoOficinaNavigation = new Oficina
+                                            {
+                                                Ciudad = p.Ciudad
+                                            }
+                                        }
+                                    })
+                                    .ToListAsync();
+
+    }
+    public async Task<IEnumerable<Cliente>> GetClientePedidoEntregadoTarde()
+    {
+        return await _context.Clientes
+                                    .Include(p => p.Pedidos)
+                                    .Where(p => p.Pedidos.Any(p => p.FechaEsperada < p.FechaEntrega))
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<ClienteGama>> GetGamaProductosxCliente()
+    {
+        return await _context.Clientes
+                                .Include(c => c.Pedidos)
+                                .ThenInclude(p => p.DetallePedidos)
+                                .ThenInclude(dp => dp.CodigoProductoNavigation)
+                                .ThenInclude(pr => pr.GamaNavigation)
+
+                                .Select(c => new ClienteGama
+                                {
+                                    NombreCliente = c.NombreCliente,
+                                    GamasCompradas = c.Pedidos
+                                        .SelectMany(p => p.DetallePedidos)
+                                        .Select(dp => dp.CodigoProductoNavigation.GamaNavigation)
+                                        .Distinct()
+                                        .ToList()
+                                })
+                                .ToListAsync();
+
+
+    }
+
+    public async Task<IEnumerable<Cliente>> GetClientesNoHanPagado()
+    {
+        return await _context.Clientes.Include(p => p.Pagos).Where(p => !p.Pagos.Any()).ToListAsync();
+    }
+    public async Task<IEnumerable<Cliente>> GetClientesNoHanPagadoNiPedido()
+    {
+        return await _context.Clientes
+                                        .Include(p => p.Pedidos)
+                                        .Include(p => p.Pagos)
+                                        .Where(p => !p.Pagos.Any() && !p.Pedidos.Any())
+                                        .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Cliente>> GetClientesHanPagadoNoPedido()
+    {
+        return await _context.Clientes
+                                .Include(p => p.Pedidos)
+                                .Include(p => p.Pagos)
+                                .Where(p => p.Pagos.Any() && !p.Pedidos.Any())
+                                .ToListAsync();
+    }
+    public async Task<IEnumerable<ClientesPorPais>> GetClientesPorPais()
+    {
+        return await _context.Clientes
+                                    .GroupBy(p => p.Pais)
+                                    .Select(p => new ClientesPorPais
+                                    {
+                                        Pais = p.Key,
+                                        CantidadClientes = p.Count()
+                                    })
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<ClientePorCiudad>> GetClientesPorCiudad()
+    {
+        return await _context.Clientes
+                                    .GroupBy(p => p.Ciudad)
+                                    .Select(p => new ClientePorCiudad
+                                    {
+                                        Ciudad = p.Key,
+                                        CantidadClientes = p.Count()
+                                    })
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<ClientePorCiudad>> GetClientesPorCiudadM()
+    {
+        return await _context.Clientes
+                            .Where(p => p.Ciudad.StartsWith("M"))
+                            .GroupBy(p => p.Ciudad)
+                            .Select(p => new ClientePorCiudad
+                            {
+                                Ciudad = p.Key,
+                                CantidadClientes = p.Count()
+                            })
+                            .ToListAsync();
+    }
+    public async Task<TotalCliente> GetTotalClientesSinRep()
+    {
+        var total = await _context.Clientes.Where(p => p.CodigoEmpleadoRepVentas == null).CountAsync();
+
+        var resultado = new TotalCliente
+        {
+            CantidadClientes = total
+        };
+        return resultado;
+    }
+
+    public async Task<IEnumerable<ClientePagos>> GetPrimerUltimoPago()
+    {
+        return await _context.Clientes
+                                    .Include(p => p.Pagos)
+                                    .Select(p => new ClientePagos
+                                    {
+                                        NombreCliente = p.NombreCliente,
+                                        NombreContacto = p.NombreContacto,
+                                        ApellidoContacto = p.ApellidoContacto,
+                                        PrimerPago = p.Pagos.Min(p => p.FechaPago),
+                                        UltimoPago = p.Pagos.Max(p => p.FechaPago)
+                                    })
                                     .ToListAsync();
     }
 }

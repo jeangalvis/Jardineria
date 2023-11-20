@@ -124,5 +124,15 @@ public class PagoController : BaseApiController
                                     .GetFormasPago();
         return _mapper.Map<List<FormaPagoDto>>(results);
     }
-
+    [HttpGet("GetPagoMedio")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<PagoMedioDto>> Get5()
+    {
+        var results = await _unitOfWork.Pagos
+                                    .GetPagoMedio();
+        var resultDto = new PagoMedioDto { PagoMedio = results };
+        return resultDto;
+    }
 }

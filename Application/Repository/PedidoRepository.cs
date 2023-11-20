@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Views;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -83,5 +84,42 @@ public class PedidoRepository : GenericRepository<Pedido>, IPedido
         return await _context.Pedidos
                                     .Where(p => p.FechaEntrega.HasValue && p.FechaEntrega.Value.Month == 1)
                                     .ToListAsync();
+    }
+    public async Task<IEnumerable<PedidoPorEstado>> GetPedidoPorEstados()
+    {
+        return await _context.Pedidos
+                                    .GroupBy(p => p.Estado)
+                                    .Select(p => new PedidoPorEstado
+                                    {
+                                        Estado = p.Key,
+                                        CantidadPedido = p.Count()
+                                    }).OrderBy(p => p.CantidadPedido)
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<PedidosConCantidadProductos>> GetPedidoConCantidadProductos()
+    {
+        var resultados = await _context.Pedidos
+            .Include(p => p.DetallePedidos)
+            .Select(p => new PedidosConCantidadProductos
+            {
+                CodigoPedido = p.CodigoPedido,
+                ProductosDiferentes = p.DetallePedidos.Select(dp => dp.CodigoProducto).Distinct().Count()
+            })
+            .ToListAsync();
+
+        return resultados;
+    }
+    public async Task<IEnumerable<PedidosConSumaCantidadTotal>> GetPedidosConSumaCantidadTotal()
+    {
+        var resultados = await _context.Pedidos
+                        .Include(p => p.DetallePedidos)
+                        .Select(p => new PedidosConSumaCantidadTotal
+                        {
+                            CodigoPedido = p.CodigoPedido,
+                            SumaCantidadTotal = p.DetallePedidos.Sum(dp => dp.Cantidad)
+                        })
+                        .ToListAsync();
+
+        return resultados;
     }
 }

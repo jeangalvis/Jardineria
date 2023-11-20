@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Views;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -36,5 +37,88 @@ public class EmpleadoRepository : GenericRepository<Empleado>, IEmpleado
                                  .Take(pageSize)
                                  .ToListAsync();
         return (totalRegistros, registros);
+    }
+    public async Task<IEnumerable<Empleado>> GetEmpleadosJefeDelJefe()
+    {
+        return await _context.Empleados
+                                    .Include(p => p.CodigoJefeNavigation)
+                                    .ThenInclude(p => p.CodigoJefeNavigation.CodigoJefeNavigation)
+                                    .Select(p => new Empleado
+                                    {
+                                        Nombre = p.Nombre,
+                                        CodigoJefeNavigation = new Empleado
+                                        {
+                                            Nombre = p.CodigoJefeNavigation.Nombre,
+                                            CodigoJefeNavigation = new Empleado
+                                            {
+                                                Nombre = p.CodigoJefeNavigation.CodigoJefeNavigation.Nombre
+                                            }
+                                        }
+                                    })
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<Empleado>> GetEmpleadosSinClienteConOficina()
+    {
+        return await _context.Empleados
+                                    .Include(p => p.Clientes)
+                                    .Include(p => p.CodigoOficinaNavigation)
+                                    .Where(p => !p.Clientes.Any())
+                                    .Select(p => new Empleado
+                                    {
+                                        Nombre = p.Nombre,
+                                        Apellidol = p.Apellidol,
+                                        Apellido2 = p.Apellido2,
+                                        CodigoOficinaNavigation = new Oficina
+                                        {
+                                            CodigoOficina = p.CodigoOficinaNavigation.CodigoOficina,
+                                            Ciudad = p.CodigoOficinaNavigation.Ciudad,
+                                            Pais = p.CodigoOficinaNavigation.Pais,
+                                            Region = p.CodigoOficinaNavigation.Region,
+                                            CodigoPostal = p.CodigoOficinaNavigation.CodigoPostal,
+                                            Telefono = p.CodigoOficinaNavigation.Telefono,
+                                            LineaDireccion1 = p.CodigoOficinaNavigation.LineaDireccion1,
+                                            LineaDireccion2 = p.CodigoOficinaNavigation.LineaDireccion2
+                                        }
+                                    })
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<Empleado>> GetEmpleadosSinClienteSinOficina()
+    {
+        return await _context.Empleados
+                                    .Include(e => e.Clientes)
+                                    .Include(e => e.CodigoOficinaNavigation)
+                                    .Where(e => !e.Clientes.Any() && e.CodigoOficinaNavigation == null)
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<Empleado>> GetEmpleadosSinClienteSinJefe()
+    {
+        return await _context.Empleados
+                                    .Include(e => e.Clientes)
+                                    .Include(e => e.CodigoOficinaNavigation)
+                                    .Where(e => !e.Clientes.Any() && e.CodigoJefe == null)
+                                    .ToListAsync();
+    }
+    public async Task<TotalEmpleados> GetTotalEmpleados()
+    {
+        var total = await _context.Empleados.CountAsync();
+        var totalEmpleadosDto = new TotalEmpleados
+        {
+            Total = total
+        };
+        return totalEmpleadosDto;
+    }
+    public async Task<IEnumerable<RepVentasConClientes>> GetRepVentasConCantidadClientes()
+    {
+        return await _context.Empleados
+                                    .Include(p => p.Clientes)
+                                    .Where(e => e.Clientes.Any(p => p.CodigoEmpleadoRepVentasNavigation != null))
+                                    .Select(p => new RepVentasConClientes
+                                    {
+                                        Nombre = p.Nombre,
+                                        Apellidol = p.Apellidol,
+                                        Apellido2 = p.Apellido2,
+                                        CantidadClientes = p.Clientes.Count()
+                                    })
+                                    .ToListAsync();
     }
 }

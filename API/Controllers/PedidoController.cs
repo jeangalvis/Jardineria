@@ -154,4 +154,38 @@ public class PedidoController : BaseApiController
                                     .GetPedidosEntregadosEnero();
         return _mapper.Map<List<PedidoDto>>(results);
     }
+    [HttpGet("GetPedidoPorEstados")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<PedidosPorEstadoDto>>> Get8()
+    {
+        var results = await _unitOfWork.Pedidos
+                                    .GetPedidoPorEstados();
+        return _mapper.Map<List<PedidosPorEstadoDto>>(results);
+
+    }
+    [HttpGet("GetPedidoConCantidadProductos")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<PedidosConCantidadProductosDto>>> Get9()
+    {
+        var results = await _unitOfWork.Pedidos
+                                    .GetPedidoConCantidadProductos();
+        return _mapper.Map<List<PedidosConCantidadProductosDto>>(results);
+
+    }
+    [HttpGet("GetPedidosConSumaCantidadTotal")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<PedidosConSumaCantidaTotalDto>>> Get10()
+    {
+        var results = await _unitOfWork.Pedidos
+                                    .GetPedidosConSumaCantidadTotal();
+        return _mapper.Map<List<PedidosConSumaCantidaTotalDto>>(results);
+
+    }
+
 }

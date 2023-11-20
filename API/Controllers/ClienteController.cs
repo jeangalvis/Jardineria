@@ -134,4 +134,154 @@ public class ClienteController : BaseApiController
                                     .GetClientesMadridRep11o30();
         return _mapper.Map<List<ClienteDto>>(results);
     }
+    [HttpGet("GetClienteRepresentanteVenta")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ClienteConRepresentanteDto>>> Get6()
+    {
+        var results = await _unitOfWork.Clientes
+                                    .GetClienteRepresentanteVenta();
+        return _mapper.Map<List<ClienteConRepresentanteDto>>(results);
+    }
+    [HttpGet("GetClienteRepresentanteVentaPago")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ClienteConRepresentanteDto>>> Get7()
+    {
+        var results = await _unitOfWork.Clientes
+                                    .GetClienteRepresentanteVentaPago();
+        return _mapper.Map<List<ClienteConRepresentanteDto>>(results);
+    }
+    [HttpGet("GetClienteRepresentanteVentaNoPago")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ClienteConRepresentanteDto>>> Get8()
+    {
+        var results = await _unitOfWork.Clientes
+                                    .GetClienteRepresentanteVentaNoPago();
+        return _mapper.Map<List<ClienteConRepresentanteDto>>(results);
+    }
+    [HttpGet("GetClienteRepresentanteVentaPagoOficina")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ClienteRepresentanteOficinaDto>>> Get9()
+    {
+        var results = await _unitOfWork.Clientes
+                                    .GetClienteRepresentanteVentaPagoOficina();
+        return _mapper.Map<List<ClienteRepresentanteOficinaDto>>(results);
+    }
+    [HttpGet("GetClienteRepresentanteVentaNoPagoOficina")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ClienteRepresentanteOficinaDto>>> Get10()
+    {
+        var results = await _unitOfWork.Clientes
+                                    .GetClienteRepresentanteVentaNoPagoOficina();
+        return _mapper.Map<List<ClienteRepresentanteOficinaDto>>(results);
+    }
+    [HttpGet("GetClientePedidoEntregadoTarde")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ClienteNombreDto>>> Get11()
+    {
+        var results = await _unitOfWork.Clientes
+                                    .GetClientePedidoEntregadoTarde();
+        return _mapper.Map<List<ClienteNombreDto>>(results);
+    }
+    [HttpGet("GetGamaProductosxCliente")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ClienteGamaDto>>> Get12()
+    {
+        var results = await _unitOfWork.Clientes
+                                    .GetGamaProductosxCliente();
+        return _mapper.Map<List<ClienteGamaDto>>(results);
+    }
+    [HttpGet("GetClientesNoHanPagado")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ClienteDto>>> Get13()
+    {
+        var results = await _unitOfWork.Clientes
+                                    .GetClientesNoHanPagado();
+        return _mapper.Map<List<ClienteDto>>(results);
+    }
+    [HttpGet("GetClientesNoHanPagadoNiPedido")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ClienteDto>>> Get14()
+    {
+        var results = await _unitOfWork.Clientes
+                                    .GetClientesNoHanPagadoNiPedido();
+        return _mapper.Map<List<ClienteDto>>(results);
+    }
+    [HttpGet("GetClientesHanPagadoNoPedido")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ClienteDto>>> Get15()
+    {
+        var results = await _unitOfWork.Clientes
+                                    .GetClientesHanPagadoNoPedido();
+        return _mapper.Map<List<ClienteDto>>(results);
+    }
+    [HttpGet("GetClientesPorPais")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ClientesPorPaisDto>>> Get16()
+    {
+        var results = await _unitOfWork.Clientes
+                                    .GetClientesPorPais();
+        return _mapper.Map<List<ClientesPorPaisDto>>(results);
+    }
+    [HttpGet("GetClientesPorCiudad")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ClientePorCiudadDto>>> Get17()
+    {
+        var results = await _unitOfWork.Clientes
+                                    .GetClientesPorCiudad();
+        return _mapper.Map<List<ClientePorCiudadDto>>(results);
+    }
+    [HttpGet("GetClientesPorCiudadM")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ClientePorCiudadDto>>> Get18()
+    {
+        var results = await _unitOfWork.Clientes
+                                    .GetClientesPorCiudadM();
+        return _mapper.Map<List<ClientePorCiudadDto>>(results);
+    }
+    [HttpGet("GetTotalClientesSinRep")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<TotalClientesDto>> Get19()
+    {
+        var results = await _unitOfWork.Clientes
+                                    .GetTotalClientesSinRep();
+        return _mapper.Map<TotalClientesDto>(results);
+    }
+    [HttpGet("GetPrimerUltimoPago")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ClientePagosDto>>> Get20()
+    {
+        var results = await _unitOfWork.Clientes
+                                    .GetPrimerUltimoPago();
+        return _mapper.Map<List<ClientePagosDto>>(results);
+    }
 }

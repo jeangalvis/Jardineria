@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Views;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -42,6 +43,43 @@ public class ProductoRepository : GenericRepository<Producto>, IProducto
         return await _context.Productos
                                     .Where(p => p.Gama.ToLower() == "Ornamentales".ToLower() && p.CantidadEnStock > 100)
                                     .OrderByDescending(p => p.PrecioVenta)
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<Producto>> GetProductosSinPedido()
+    {
+        return await _context.Productos
+                                    .Where(p => !p.DetallePedidos.Any())
+                                    .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Producto>> GetProductosGamaSinPedido()
+    {
+        return await _context.Productos
+                                    .Include(p => p.GamaNavigation)
+                                    .Where(p => !p.DetallePedidos.Any())
+                                    .Select(p => new Producto
+                                    {
+                                        Nombre = p.Nombre,
+                                        GamaNavigation = new GamaProducto
+                                        {
+                                            Gama = p.GamaNavigation.Gama,
+                                            DescripcionHtml = p.GamaNavigation.DescripcionHtml,
+                                            DescripcionTexto = p.GamaNavigation.DescripcionTexto,
+                                            Imagen = p.GamaNavigation.Imagen
+                                        }
+                                    })
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<ProductosMasVendidos>> GetProductosMasVendidos()
+    {
+        return await _context.Productos
+                                    .Select(p => new ProductosMasVendidos
+                                    {
+                                        Nombre = p.Nombre,
+                                        Cantidad = p.DetallePedidos.Sum(p => p.Cantidad)
+                                    })
+                                    .OrderByDescending(p => p.Cantidad)
+                                    .Take(20)
                                     .ToListAsync();
     }
 }
