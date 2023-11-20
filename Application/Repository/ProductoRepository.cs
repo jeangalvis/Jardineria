@@ -122,4 +122,31 @@ public class ProductoRepository : GenericRepository<Producto>, IProducto
                                     .ToListAsync();
 
     }
+    public async Task<Producto> GetProductoPrecioVentaMasCaro()
+    {
+        return await _context.Productos
+                                    .OrderByDescending(p => p.PrecioVenta)
+                                    .FirstOrDefaultAsync();
+    }
+    public async Task<Producto> GetProductosMasUnidadesVendidas()
+    {
+        return await _context.Productos
+                                    .OrderByDescending(p => p.DetallePedidos.Sum(p => p.Cantidad))
+                                    .FirstOrDefaultAsync();
+    }
+    public async Task<Producto> GetProductoPrecioVentaMasCaroV2()
+    {
+        var nombreProducto = await _context.Productos
+                                    .Where(producto => producto.PrecioVenta >=
+                                    _context.Productos.Max(p => p.PrecioVenta))
+                                    .FirstOrDefaultAsync();
+
+        return nombreProducto;
+    }
+    public async Task<IEnumerable<Producto>> GetProductosSinPedidoV2()
+    {
+        var productosPedidos = await _context.DetallePedidos.Select(p => p.CodigoProducto).Distinct().ToListAsync();
+        var productosNoPedidos = await _context.Productos.Where(p => !productosPedidos.Contains(p.CodigoProducto)).ToListAsync();
+        return productosNoPedidos;
+    }
 }

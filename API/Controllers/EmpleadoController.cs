@@ -162,4 +162,13 @@ public class EmpleadoController : BaseApiController
         var results = await _unitOfWork.Empleados.GetRepVentasConCantidadClientes();
         return _mapper.Map<List<RepVentasConClientesDto>>(results);
     }
+    [HttpGet("GetRepVentasSinCliente")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<EmpleadoTelefonoOficinaDto>>> Get9()
+    {
+        var results = await _unitOfWork.Empleados.GetRepVentasSinCliente();
+        return _mapper.Map<List<EmpleadoTelefonoOficinaDto>>(results);
+    }
 }

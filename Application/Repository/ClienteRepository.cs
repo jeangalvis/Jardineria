@@ -189,7 +189,9 @@ public class ClienteRepository : GenericRepository<Cliente>, ICliente
 
     public async Task<IEnumerable<Cliente>> GetClientesNoHanPagado()
     {
-        return await _context.Clientes.Include(p => p.Pagos).Where(p => !p.Pagos.Any()).ToListAsync();
+        return await _context.Clientes
+                                .Where(cliente => !_context.Pagos.Any(pago => pago.CodigoCliente == cliente.CodigoCliente))
+                                .ToListAsync();
     }
     public async Task<IEnumerable<Cliente>> GetClientesNoHanPagadoNiPedido()
     {
@@ -265,6 +267,63 @@ public class ClienteRepository : GenericRepository<Cliente>, ICliente
                                         PrimerPago = p.Pagos.Min(p => p.FechaPago),
                                         UltimoPago = p.Pagos.Max(p => p.FechaPago)
                                     })
+                                    .ToListAsync();
+    }
+    public async Task<Cliente> GetClienteMayorLimiteCredito()
+    {
+        return await _context.Clientes
+                                    .OrderByDescending(p => p.LimiteCredito)
+                                    .FirstOrDefaultAsync();
+    }
+    public async Task<IEnumerable<Cliente>> GetClienteCreditoMayorPagoRealizado()
+    {
+        return await _context.Clientes
+                                    .Where(p => p.LimiteCredito > p.Pagos.Sum(p => p.Total)).ToListAsync();
+    }
+    public async Task<Cliente> GetClienteMayorLimiteCreditoV2()
+    {
+        var nombreCliente = await _context.Clientes
+                                            .Where(cliente => cliente.LimiteCredito >=
+                                            _context.Clientes.Max(c => c.LimiteCredito))
+                                            .FirstOrDefaultAsync();
+        return nombreCliente;
+    }
+    public async Task<IEnumerable<Cliente>> GetClientesNoHanPagadoV2()
+    {
+        var codigosClientesConPagos = await _context.Pagos
+                                                .Select(p => p.CodigoCliente)
+                                                .Distinct()
+                                                .ToListAsync();
+
+        var clientesSinPagos = await _context.Clientes
+                                        .Where(cliente => !codigosClientesConPagos.Contains(cliente.CodigoCliente))
+                                        .ToListAsync();
+
+        return clientesSinPagos;
+    }
+    public async Task<IEnumerable<Cliente>> GetClientesSiHanPagado()
+    {
+        var codigosClientesConPagos = await _context.Pagos
+                                        .Select(p => p.CodigoCliente)
+                                        .Distinct()
+                                        .ToListAsync();
+
+        var clientesConPagos = await _context.Clientes
+                                        .Where(cliente => codigosClientesConPagos.Contains(cliente.CodigoCliente))
+                                        .ToListAsync();
+
+        return clientesConPagos;
+    }
+    public async Task<IEnumerable<Cliente>> GetClientesNoHanPagadoV3()
+    {
+
+        return await _context.Clientes.Include(p => p.Pagos).Where(p => !p.Pagos.Any()).ToListAsync();
+    }
+    public async Task<IEnumerable<Cliente>> GetClientesSiHanPagadoV2()
+    {
+        return await _context.Clientes
+                                    .Where(cliente => _context.Pagos
+                                        .Any(pago => pago.CodigoCliente == cliente.CodigoCliente))
                                     .ToListAsync();
     }
 }

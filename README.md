@@ -279,3 +279,63 @@ Body en formato JSON
     de los años que aparecen en la tabla pagos.
 
 `/api/Pago/GetTotalPagosPorAnyos`
+
+45. Devuelve el nombre del cliente con mayor límite de crédito.
+
+`/api/Cliente/GetClienteMayorLimiteCreditoV2`
+
+46. Devuelve el nombre del producto que tenga el precio de venta más caro.
+
+`/api/Producto/GetProductoPrecioVentaMasCaroV2`
+
+47. Devuelve el nombre del producto del que se han vendido más unidades.
+    (Tenga en cuenta que tendrá que calcular cuál es el número total de
+    unidades que se han vendido de cada producto a partir de los datos de la
+    tabla detalle_pedido).
+
+`/api/Producto/GetProductosMasUnidadesVendidas`
+
+48. Los clientes cuyo límite de crédito sea mayor que los pagos que haya
+    realizado. (Sin utilizar INNER JOIN).
+
+`/api/Cliente/GetClienteCreditoMayorPagoRealizado`
+
+49. Devuelve el nombre del cliente con mayor límite de crédito.
+
+`/api/Cliente/GetClienteMayorLimiteCredito`
+
+50. Devuelve el nombre del producto que tenga el precio de venta más caro.
+
+`/api/Producto/GetProductoPrecioVentaMasCaro`
+
+51. Devuelve un listado que muestre solamente los clientes que no han
+    realizado ningún pago
+
+`/api/Cliente/GetClientesNoHanPagadoV2`
+
+52. Devuelve un listado que muestre solamente los clientes que sí han realizado
+    algún pago.
+
+`/api/Cliente/GetClientesSiHanPagado`
+
+53. Devuelve un listado de los productos que nunca han aparecido en un
+    pedido.
+
+`/api/Producto/GetProductosSinPedidoV2`
+
+54. Devuelve el nombre, apellidos, puesto y teléfono de la oficina de aquellos
+    empleados que no sean representante de ventas de ningún cliente.
+
+`/api/Empleado/GetRepVentasSinCliente`
+
+55. Devuelve un listado que muestre solamente los clientes que no han
+    realizado ningún pago.
+
+`/api/Cliente/GetClientesNoHanPagadoV3`
+
+56. Devuelve un listado que muestre solamente los clientes que sí han realizado
+    algún pago.
+
+`/api/Cliente/GetClientesSiHanPagadoV2`
+
+

@@ -121,4 +121,19 @@ public class EmpleadoRepository : GenericRepository<Empleado>, IEmpleado
                                     })
                                     .ToListAsync();
     }
+    public async Task<IEnumerable<EmpleadosTelefonoOficina>> GetRepVentasSinCliente()
+    {
+        var clientesConRepVentas = await _context.Clientes.Select(p => p.CodigoEmpleadoRepVentas).Distinct().ToListAsync();
+        var RepVentas = await _context.Empleados.Where(p => !clientesConRepVentas.Contains(p.CodigoEmpleado))
+                                                .Select(p => new EmpleadosTelefonoOficina
+                                                {
+                                                    Nombre = p.Nombre,
+                                                    Apellidol = p.Apellidol,
+                                                    Apellido2 = p.Apellido2,
+                                                    Puesto = p.Puesto,
+                                                    Telefono = p.CodigoOficinaNavigation.Telefono
+                                                })
+                                                .ToListAsync();
+        return RepVentas;
+    }
 }

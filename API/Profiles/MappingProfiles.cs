@@ -47,6 +47,7 @@ namespace API.Profiles
             CreateMap<ProductosMasVendidos, ProductosMasVendidosDto>().ReverseMap();
             CreateMap<TotalFacturadoProductos, TotalFacturadoProductosDto>().ReverseMap();
             CreateMap<TotalPagosPorAnyo, TotalPagosPorAnyoDto>().ReverseMap();
+            CreateMap<EmpleadosTelefonoOficina, EmpleadoTelefonoOficinaDto>().ReverseMap();
         }
     }
 }

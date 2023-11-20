@@ -23,5 +23,12 @@ namespace Domain.Interfaces
         Task<IEnumerable<ClientePorCiudad>> GetClientesPorCiudadM();
         Task<TotalCliente> GetTotalClientesSinRep();
         Task<IEnumerable<ClientePagos>> GetPrimerUltimoPago();
+        Task<Cliente> GetClienteMayorLimiteCredito();
+        Task<IEnumerable<Cliente>> GetClienteCreditoMayorPagoRealizado();
+        Task<Cliente> GetClienteMayorLimiteCreditoV2();
+        Task<IEnumerable<Cliente>> GetClientesNoHanPagadoV2();
+        Task<IEnumerable<Cliente>> GetClientesSiHanPagado();
+        Task<IEnumerable<Cliente>> GetClientesNoHanPagadoV3();
+        Task<IEnumerable<Cliente>> GetClientesSiHanPagadoV2();
     }
 }

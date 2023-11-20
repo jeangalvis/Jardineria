@@ -12,5 +12,9 @@ namespace Domain.Interfaces
         Task<IEnumerable<ProductosMasVendidos>> GetProductosMasVendidosAgrupadosCodigo();
         Task<IEnumerable<ProductosMasVendidos>> GetProductosMasVendidosAgrupadosCodigoFiltradoOr();
         Task<IEnumerable<TotalFacturadoProductos>> GetProductosVentasMas3000();
+        Task<Producto> GetProductoPrecioVentaMasCaro();
+        Task<Producto> GetProductosMasUnidadesVendidas();
+        Task<Producto> GetProductoPrecioVentaMasCaroV2();
+        Task<IEnumerable<Producto>> GetProductosSinPedidoV2();
     }
 }

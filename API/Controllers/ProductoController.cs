@@ -174,4 +174,44 @@ public class ProductoController : BaseApiController
                                     .GetProductosVentasMas3000();
         return _mapper.Map<List<TotalFacturadoProductosDto>>(results);
     }
+    [HttpGet("GetProductoPrecioVentaMasCaro")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<ProductoDto>> Get10()
+    {
+        var results = await _unitOfWork.Productos
+                                    .GetProductoPrecioVentaMasCaro();
+        return _mapper.Map<ProductoDto>(results);
+    }
+    [HttpGet("GetProductosMasUnidadesVendidas")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<ProductoDto>> Get11()
+    {
+        var results = await _unitOfWork.Productos
+                                    .GetProductosMasUnidadesVendidas();
+        return _mapper.Map<ProductoDto>(results);
+    }
+    [HttpGet("GetProductoPrecioVentaMasCaroV2")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<ProductoDto>> Get12()
+    {
+        var results = await _unitOfWork.Productos
+                                    .GetProductoPrecioVentaMasCaroV2();
+        return _mapper.Map<ProductoDto>(results);
+    }
+    [HttpGet("GetProductosSinPedidoV2")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProductoDto>>> Get13()
+    {
+        var results = await _unitOfWork.Productos
+                                    .GetProductosSinPedidoV2();
+        return _mapper.Map<List<ProductoDto>>(results);
+    }
 }

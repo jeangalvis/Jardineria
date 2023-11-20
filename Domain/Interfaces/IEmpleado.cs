@@ -11,5 +11,6 @@ namespace Domain.Interfaces
         Task<IEnumerable<Empleado>> GetEmpleadosSinClienteSinJefe();
         Task<TotalEmpleados> GetTotalEmpleados();
         Task<IEnumerable<RepVentasConClientes>> GetRepVentasConCantidadClientes();
+        Task<IEnumerable<EmpleadosTelefonoOficina>> GetRepVentasSinCliente();
     }
 }
