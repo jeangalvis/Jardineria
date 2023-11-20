@@ -45,6 +45,8 @@ namespace API.Profiles
             CreateMap<PedidosConCantidadProductos, PedidosConCantidadProductosDto>().ReverseMap();
             CreateMap<PedidosConSumaCantidadTotal, PedidosConSumaCantidaTotalDto>().ReverseMap();
             CreateMap<ProductosMasVendidos, ProductosMasVendidosDto>().ReverseMap();
+            CreateMap<TotalFacturadoProductos, TotalFacturadoProductosDto>().ReverseMap();
+            CreateMap<TotalPagosPorAnyo, TotalPagosPorAnyoDto>().ReverseMap();
         }
     }
 }

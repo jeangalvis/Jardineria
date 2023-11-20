@@ -258,3 +258,24 @@ Body en formato JSON
     por el número total de unidades vendidas.
 
 `/api/Producto/GetProductosMasVendidos`
+
+41. La misma información que en la pregunta anterior, pero agrupada por
+    código de producto.
+
+`/api/Producto/GetProductosMasVendidosAgrupadosCodigo`
+
+42. La misma información que en la pregunta anterior, pero agrupada por
+    código de producto filtrada por los códigos que empiecen por OR.
+
+`/api/Producto/GetProductosMasVendidosAgrupadosCodigoFiltradoOr`
+
+43. Lista las ventas totales de los productos que hayan facturado más de 3000
+    euros. Se mostrará el nombre, unidades vendidas, total facturado y total
+    facturado con impuestos (21% IVA).
+
+`/api/Producto/GetProductosVentasMas3000`
+
+44. Muestre la suma total de todos los pagos que se realizaron para cada uno
+    de los años que aparecen en la tabla pagos.
+
+`/api/Pago/GetTotalPagosPorAnyos`

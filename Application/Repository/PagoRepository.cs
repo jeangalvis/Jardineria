@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Views;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -59,5 +60,16 @@ public class PagoRepository : GenericRepository<Pago>, IPago
         return await _context.Pagos
                                 .Where(p => p.FechaPago.Year == 2009)
                                 .AverageAsync(p => p.Total);
+    }
+    public async Task<IEnumerable<TotalPagosPorAnyo>> GetTotalPagosPorAnyos()
+    {
+        return await _context.Pagos
+                                .GroupBy(p => p.FechaPago.Year)
+                                .Select(p => new TotalPagosPorAnyo
+                                {
+                                    Anyo = p.Key,
+                                    TotalPagos = p.Sum(p => p.Total)
+                                })
+                                .ToListAsync();
     }
 }

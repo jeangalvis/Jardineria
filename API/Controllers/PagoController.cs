@@ -135,4 +135,14 @@ public class PagoController : BaseApiController
         var resultDto = new PagoMedioDto { PagoMedio = results };
         return resultDto;
     }
+    [HttpGet("GetTotalPagosPorAnyos")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<TotalPagosPorAnyoDto>>> Get6()
+    {
+        var results = await _unitOfWork.Pagos
+                                    .GetTotalPagosPorAnyos();
+        return _mapper.Map<List<TotalPagosPorAnyoDto>>(results);
+    }
 }

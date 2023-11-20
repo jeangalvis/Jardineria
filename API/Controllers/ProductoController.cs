@@ -144,4 +144,34 @@ public class ProductoController : BaseApiController
                                     .GetProductosMasVendidos();
         return _mapper.Map<List<ProductosMasVendidosDto>>(results);
     }
+    [HttpGet("GetProductosMasVendidosAgrupadosCodigo")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProductosMasVendidosDto>>> Get7()
+    {
+        var results = await _unitOfWork.Productos
+                                    .GetProductosMasVendidosAgrupadosCodigo();
+        return _mapper.Map<List<ProductosMasVendidosDto>>(results);
+    }
+    [HttpGet("GetProductosMasVendidosAgrupadosCodigoFiltradoOr")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProductosMasVendidosDto>>> Get8()
+    {
+        var results = await _unitOfWork.Productos
+                                    .GetProductosMasVendidosAgrupadosCodigoFiltradoOr();
+        return _mapper.Map<List<ProductosMasVendidosDto>>(results);
+    }
+    [HttpGet("GetProductosVentasMas3000")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<TotalFacturadoProductosDto>>> Get9()
+    {
+        var results = await _unitOfWork.Productos
+                                    .GetProductosVentasMas3000();
+        return _mapper.Map<List<TotalFacturadoProductosDto>>(results);
+    }
 }

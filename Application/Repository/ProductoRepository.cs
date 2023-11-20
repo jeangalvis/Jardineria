@@ -82,4 +82,44 @@ public class ProductoRepository : GenericRepository<Producto>, IProducto
                                     .Take(20)
                                     .ToListAsync();
     }
+    public async Task<IEnumerable<ProductosMasVendidos>> GetProductosMasVendidosAgrupadosCodigo()
+    {
+        return await _context.DetallePedidos
+                                    .GroupBy(p => p.CodigoProducto)
+                                    .Select(p => new ProductosMasVendidos
+                                    {
+                                        Nombre = p.First().CodigoProductoNavigation.Nombre,
+                                        Cantidad = p.Sum(p => p.Cantidad)
+                                    })
+                                    .OrderByDescending(p => p.Cantidad)
+                                    .Take(20)
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<ProductosMasVendidos>> GetProductosMasVendidosAgrupadosCodigoFiltradoOr()
+    {
+        return await _context.DetallePedidos
+                            .GroupBy(p => p.CodigoProducto.StartsWith("Or"))
+                            .Select(p => new ProductosMasVendidos
+                            {
+                                Nombre = p.First().CodigoProductoNavigation.Nombre,
+                                Cantidad = p.Sum(p => p.Cantidad)
+                            })
+                            .OrderByDescending(p => p.Cantidad)
+                            .Take(20)
+                            .ToListAsync();
+    }
+    public async Task<IEnumerable<TotalFacturadoProductos>> GetProductosVentasMas3000()
+    {
+        return await _context.DetallePedidos
+                                    .Where(p => p.PrecioUnidad * p.Cantidad > 3000)
+                                    .Select(p => new TotalFacturadoProductos
+                                    {
+                                        Nombre = p.CodigoProductoNavigation.Nombre,
+                                        UnidadesVendidas = p.Cantidad,
+                                        TotalFacturado = p.Cantidad * p.PrecioUnidad,
+                                        TotalFacturadoImpuestos = p.Cantidad * p.PrecioUnidad * 1.21m
+                                    })
+                                    .ToListAsync();
+
+    }
 }
