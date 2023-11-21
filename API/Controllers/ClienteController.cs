@@ -354,4 +354,88 @@ public class ClienteController : BaseApiController
                                     .GetClientesSiHanPagadoV2();
         return _mapper.Map<List<ClienteDto>>(results);
     }
+    [HttpGet("GetClientesxPedido")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ClientesxPedidoDto>>> Get28()
+    {
+        var results = await _unitOfWork.Clientes
+                                    .GetClientesxPedido();
+        return _mapper.Map<List<ClientesxPedidoDto>>(results);
+    }
+    [HttpGet("GetClientesPedidos2008")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ClienteDto>>> Get29()
+    {
+        var results = await _unitOfWork.Clientes
+                                    .GetClientesPedidos2008();
+        return _mapper.Map<List<ClienteDto>>(results);
+    }
+    [HttpGet("GetClienteRepOficinaPagos")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ClienteRepOficinaPagoDto>>> Get30()
+    {
+        var results = await _unitOfWork.Clientes
+                                    .GetClienteRepOficinaPagos();
+        return _mapper.Map<List<ClienteRepOficinaPagoDto>>(results);
+    }
+    [HttpGet("GetClienteRepCiudadOficinas")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ClienteRepCiudadOficinaDto>>> Get31()
+    {
+        var results = await _unitOfWork.Clientes
+                                    .GetClienteRepCiudadOficinas();
+        return _mapper.Map<List<ClienteRepCiudadOficinaDto>>(results);
+    }
+    [HttpGet("GetClientesEspañoles")]
+    [MapToApiVersion("1.1")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Pager<ClienteDto>>> GetClientesEspañoles([FromQuery] Params resultParams)
+    {
+        var result = await _unitOfWork.Clientes.GetClientesEspañoles(resultParams.PageIndex, resultParams.PageSize, resultParams.Search);
+        var lstResultDto = _mapper.Map<List<ClienteDto>>(result.registros);
+        return new Pager<ClienteDto>(lstResultDto, result.totalRegistros, resultParams.PageIndex, resultParams.PageSize, resultParams.Search);
+    }
+    [HttpGet("GetClientesMadridRep11o30")]
+    [MapToApiVersion("1.1")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Pager<ClienteDto>>> GetClientesMadridRep11o30([FromQuery] Params resultParams)
+    {
+        var result = await _unitOfWork.Clientes.GetClientesMadridRep11o30(resultParams.PageIndex, resultParams.PageSize, resultParams.Search);
+        var lstResultDto = _mapper.Map<List<ClienteDto>>(result.registros);
+        return new Pager<ClienteDto>(lstResultDto, result.totalRegistros, resultParams.PageIndex, resultParams.PageSize, resultParams.Search);
+    }
+    [HttpGet("GetClientePedidoEntregadoTarde")]
+    [MapToApiVersion("1.1")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Pager<ClienteDto>>> GetClientePedidoEntregadoTarde([FromQuery] Params resultParams)
+    {
+        var result = await _unitOfWork.Clientes.GetClientePedidoEntregadoTarde(resultParams.PageIndex, resultParams.PageSize, resultParams.Search);
+        var lstResultDto = _mapper.Map<List<ClienteDto>>(result.registros);
+        return new Pager<ClienteDto>(lstResultDto, result.totalRegistros, resultParams.PageIndex, resultParams.PageSize, resultParams.Search);
+    }
+    [HttpGet("GetClientesPedidos2008")]
+    [MapToApiVersion("1.1")]
+    //[Authorize(Roles = "Administrator,Employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Pager<ClienteDto>>> GetClientesPedidos2008([FromQuery] Params resultParams)
+    {
+        var result = await _unitOfWork.Clientes.GetClientesPedidos2008(resultParams.PageIndex, resultParams.PageSize, resultParams.Search);
+        var lstResultDto = _mapper.Map<List<ClienteDto>>(result.registros);
+        return new Pager<ClienteDto>(lstResultDto, result.totalRegistros, resultParams.PageIndex, resultParams.PageSize, resultParams.Search);
+    }
 }

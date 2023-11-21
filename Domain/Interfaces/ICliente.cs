@@ -30,5 +30,13 @@ namespace Domain.Interfaces
         Task<IEnumerable<Cliente>> GetClientesSiHanPagado();
         Task<IEnumerable<Cliente>> GetClientesNoHanPagadoV3();
         Task<IEnumerable<Cliente>> GetClientesSiHanPagadoV2();
+        Task<IEnumerable<ClientesxPedido>> GetClientesxPedido();
+        Task<IEnumerable<Cliente>> GetClientesPedidos2008();
+        Task<IEnumerable<ClienteRepOficinaPago>> GetClienteRepOficinaPagos();
+        Task<IEnumerable<ClienteRepCiudadOficina>> GetClienteRepCiudadOficinas();
+        Task<(int totalRegistros, IEnumerable<Cliente> registros)> GetClientesEspañoles(int pageIndex, int pageSize, string search);
+        Task<(int totalRegistros, IEnumerable<Cliente> registros)> GetClientesMadridRep11o30(int pageIndex, int pageSize, string search);
+        Task<(int totalRegistros, IEnumerable<Cliente> registros)> GetClientePedidoEntregadoTarde(int pageIndex, int pageSize, string search);
+        Task<(int totalRegistros, IEnumerable<Cliente> registros)> GetClientesPedidos2008(int pageIndex, int pageSize, string search);
     }
 }

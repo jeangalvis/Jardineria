@@ -338,4 +338,45 @@ Body en formato JSON
 
 `/api/Cliente/GetClientesSiHanPagadoV2`
 
+57. Devuelve el listado de clientes indicando el nombre del cliente y cuántos
+    pedidos ha realizado. Tenga en cuenta que pueden existir clientes que no
+    han realizado ningún pedido.
 
+`/api/Cliente/GetClientesxPedido`
+
+58. Devuelve el nombre de los clientes que hayan hecho pedidos en 2008
+    ordenados alfabéticamente de menor a mayor.
+
+`/api/Cliente/GetClientesPedidos2008`
+
+59. Devuelve el nombre del cliente, el nombre y primer apellido de su
+    representante de ventas y el número de teléfono de la oficina del
+    representante de ventas, de aquellos clientes que no hayan realizado ningún
+    pago.
+
+`/api/Cliente/GetClienteRepOficinaPagos`
+
+60. Devuelve el listado de clientes donde aparezca el nombre del cliente, el
+    nombre y primer apellido de su representante de ventas y la ciudad donde
+    está su oficina.
+
+`/api/Cliente/GetClienteRepCiudadOficinas`
+
+61. Devuelve el nombre, apellidos, puesto y teléfono de la oficina de aquellos
+    empleados que no sean representante de ventas de ningún cliente.
+
+`/api/Empleado/GetNoRepVentaDeClientes`
+
+### Consultas Paginadas
+
+#### En el Header agregar
+
+X-Version: 1.1
+
+`/api/Cliente/GetClientesEspañoles`
+
+`/api/Cliente/GetClientesMadridRep11o30`
+
+`/api/Cliente/GetClientePedidoEntregadoTarde`
+
+`/api/Cliente/GetClientesPedidos2008`

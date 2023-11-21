@@ -326,4 +326,109 @@ public class ClienteRepository : GenericRepository<Cliente>, ICliente
                                         .Any(pago => pago.CodigoCliente == cliente.CodigoCliente))
                                     .ToListAsync();
     }
+    public async Task<IEnumerable<ClientesxPedido>> GetClientesxPedido()
+    {
+        return await _context.Clientes
+                                    .Select(p => new ClientesxPedido
+                                    {
+                                        Nombre = p.NombreCliente,
+                                        CantidadPedidos = p.Pedidos.Sum(p => p.CodigoCliente)
+                                    })
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<Cliente>> GetClientesPedidos2008()
+    {
+        return await _context.Clientes
+                                    .Where(p => p.Pedidos.Any(p => p.FechaPedido.Year == 2008))
+                                    .OrderBy(p => p.NombreCliente)
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<ClienteRepOficinaPago>> GetClienteRepOficinaPagos()
+    {
+        return await _context.Clientes
+                                    .Where(p => !p.Pagos.Any())
+                                    .Select(p => new ClienteRepOficinaPago
+                                    {
+                                        NombreCliente = p.NombreCliente,
+                                        NombreEmpleado = p.CodigoEmpleadoRepVentasNavigation.Nombre,
+                                        ApellidoEmpleado = p.CodigoEmpleadoRepVentasNavigation.Apellidol,
+                                        TelefonoOficina = p.CodigoEmpleadoRepVentasNavigation.CodigoOficinaNavigation.Telefono
+                                    })
+                                    .ToListAsync();
+    }
+    public async Task<IEnumerable<ClienteRepCiudadOficina>> GetClienteRepCiudadOficinas()
+    {
+        return await _context.Clientes
+                                    .Select(p => new ClienteRepCiudadOficina
+                                    {
+                                        NombreCliente = p.NombreCliente,
+                                        NombreEmpleado = p.CodigoEmpleadoRepVentasNavigation.Nombre,
+                                        ApellidoEmpleado = p.CodigoEmpleadoRepVentasNavigation.Apellidol,
+                                        CiudadOficina = p.CodigoEmpleadoRepVentasNavigation.CodigoOficinaNavigation.Ciudad
+                                    })
+                                    .ToListAsync();
+    }
+
+    public async Task<(int totalRegistros, IEnumerable<Cliente> registros)> GetClientesEspañoles(int pageIndex, int pageSize, string search)
+    {
+        var query = _context.Clientes as IQueryable<Cliente>;
+        if (!string.IsNullOrEmpty(search))
+        {
+            query = query.Where(p => p.NombreCliente.ToLower().Contains(search));
+        }
+        var totalRegistros = await query.CountAsync();
+        var registros = await query
+                                .Where(p => p.Pais.ToLower() == "Spain".ToLower())
+                                 .Skip((pageIndex - 1) * pageSize)
+                                 .Take(pageSize)
+                                 .ToListAsync();
+        return (totalRegistros, registros);
+    }
+    public async Task<(int totalRegistros, IEnumerable<Cliente> registros)> GetClientesMadridRep11o30(int pageIndex, int pageSize, string search)
+    {
+        var query = _context.Clientes as IQueryable<Cliente>;
+        if (!string.IsNullOrEmpty(search))
+        {
+            query = query.Where(p => p.NombreCliente.ToLower().Contains(search));
+        }
+        var totalRegistros = await query.CountAsync();
+        var registros = await query
+                                .Where(p => p.Ciudad.ToLower() == "Madrid".ToLower() && p.CodigoEmpleadoRepVentas == 11 || p.CodigoEmpleadoRepVentas == 30)
+                                 .Skip((pageIndex - 1) * pageSize)
+                                 .Take(pageSize)
+                                 .ToListAsync();
+        return (totalRegistros, registros);
+    }
+    public async Task<(int totalRegistros, IEnumerable<Cliente> registros)> GetClientePedidoEntregadoTarde(int pageIndex, int pageSize, string search)
+    {
+        var query = _context.Clientes as IQueryable<Cliente>;
+        if (!string.IsNullOrEmpty(search))
+        {
+            query = query.Where(p => p.NombreCliente.ToLower().Contains(search));
+        }
+        var totalRegistros = await query.CountAsync();
+        var registros = await query
+                                .Include(p => p.Pedidos)
+                                .Where(p => p.Pedidos.Any(p => p.FechaEsperada < p.FechaEntrega))
+                                 .Skip((pageIndex - 1) * pageSize)
+                                 .Take(pageSize)
+                                 .ToListAsync();
+        return (totalRegistros, registros);
+    }
+    public async Task<(int totalRegistros, IEnumerable<Cliente> registros)> GetClientesPedidos2008(int pageIndex, int pageSize, string search)
+    {
+        var query = _context.Clientes as IQueryable<Cliente>;
+        if (!string.IsNullOrEmpty(search))
+        {
+            query = query.Where(p => p.NombreCliente.ToLower().Contains(search));
+        }
+        var totalRegistros = await query.CountAsync();
+        var registros = await query
+                                .Where(p => p.Pedidos.Any(p => p.FechaPedido.Year == 2008))
+                                .OrderBy(p => p.NombreCliente)
+                                 .Skip((pageIndex - 1) * pageSize)
+                                 .Take(pageSize)
+                                 .ToListAsync();
+        return (totalRegistros, registros);
+    }
 }

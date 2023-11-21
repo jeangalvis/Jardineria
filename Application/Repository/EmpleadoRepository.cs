@@ -136,4 +136,18 @@ public class EmpleadoRepository : GenericRepository<Empleado>, IEmpleado
                                                 .ToListAsync();
         return RepVentas;
     }
+    public async Task<IEnumerable<EmpleadosTelefonoOficina>> GetNoRepVentaDeClientes()
+    {
+        return await _context.Empleados
+                                    .Where(p => !p.Clientes.Any())
+                                    .Select(p => new EmpleadosTelefonoOficina
+                                    {
+                                        Nombre = p.Nombre,
+                                        Apellidol = p.Apellidol,
+                                        Apellido2 = p.Apellido2,
+                                        Puesto = p.Puesto,
+                                        Telefono = p.CodigoOficinaNavigation.Telefono
+                                    })
+                                    .ToListAsync();
+    }
 }

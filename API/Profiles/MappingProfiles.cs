@@ -18,6 +18,7 @@ namespace API.Profiles
             CreateMap<Pago, PagoDto>().ReverseMap();
             CreateMap<Pedido, PedidoDto>().ReverseMap();
             CreateMap<Producto, ProductoDto>().ReverseMap();
+            CreateMap<Rol, RolDto>().ReverseMap();
 
             //Consultas
 
@@ -48,6 +49,9 @@ namespace API.Profiles
             CreateMap<TotalFacturadoProductos, TotalFacturadoProductosDto>().ReverseMap();
             CreateMap<TotalPagosPorAnyo, TotalPagosPorAnyoDto>().ReverseMap();
             CreateMap<EmpleadosTelefonoOficina, EmpleadoTelefonoOficinaDto>().ReverseMap();
+            CreateMap<ClientesxPedido, ClientesxPedidoDto>().ReverseMap();
+            CreateMap<ClienteRepOficinaPago, ClienteRepOficinaPagoDto>().ReverseMap();
+            CreateMap<ClienteRepCiudadOficina, ClienteRepCiudadOficinaDto>().ReverseMap();
         }
     }
 }
